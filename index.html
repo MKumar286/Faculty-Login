@@ -1,267 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MGIT - Department Placement Coordinator Portal</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Department Placement Coordinator Login</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+background:linear-gradient(135deg,#0d47a1,#1565c0,#42a5f5);
+
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+
+}
+
+.login-box{
+
+width:430px;
+background:#fff;
+border-radius:15px;
+padding:35px;
+box-shadow:0 20px 40px rgba(0,0,0,.25);
+
+}
+
+.logo{
+
+text-align:center;
+margin-bottom:15px;
+
+}
+
+.logo img{
+
+width:80px;
+
+}
+
+h2{
+
+text-align:center;
+color:#0d47a1;
+margin-bottom:5px;
+
+}
+
+.tagline{
+
+text-align:center;
+font-size:14px;
+color:#666;
+margin-bottom:25px;
+
+}
+
+.input-group{
+
+margin-bottom:18px;
+
+}
+
+label{
+
+display:block;
+margin-bottom:6px;
+font-size:14px;
+font-weight:500;
+color:#333;
+
+}
+
+input,select{
+
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:15px;
+outline:none;
+
+}
+
+input:focus,
+select:focus{
+
+border-color:#1565c0;
+
+}
+
+.options{
+
+display:flex;
+justify-content:space-between;
+font-size:13px;
+margin-bottom:20px;
+
+}
+
+.options a{
+
+text-decoration:none;
+color:#1565c0;
+
+}
+
+button{
+
+width:100%;
+padding:13px;
+border:none;
+background:#1565c0;
+color:white;
+font-size:16px;
+font-weight:600;
+border-radius:8px;
+cursor:pointer;
+transition:.3s;
+
+}
+
+button:hover{
+
+background:#0d47a1;
+
+}
+
+.footer{
+
+margin-top:20px;
+text-align:center;
+font-size:13px;
+color:#666;
+
+}
+
+.footer span{
+
+color:#1565c0;
+font-weight:600;
+
+}
+
+</style>
+
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex">
 
-  <!-- ================= LEFT SIDEBAR WITH GRADIENT & HEAVY TYPOGRAPHY ================= -->
-  <aside class="w-72 bg-gradient-to-b from-slate-950 via-indigo-950 to-blue-950 border-r border-indigo-900/50 flex flex-col justify-between shrink-0 min-h-screen sticky top-0 h-screen shadow-2xl text-slate-100">
-    <div>
-      <!-- College & Dept Header -->
-      <div class="p-5 border-b border-white/10 flex items-center space-x-3 bg-white/5 backdrop-blur-md">
-        <div class="bg-gradient-to-tr from-blue-600 to-indigo-500 text-white font-black text-xl p-2.5 rounded-xl shadow-lg border border-white/20">MGIT</div>
-        <div>
-          <h1 class="font-extrabold text-sm text-white tracking-wide">Placement Portal</h1>
-          <p class="text-xs text-blue-300 font-bold">Dept. Coordinator</p>
-        </div>
-      </div>
+<body>
 
-      <!-- Requested Coordinator Navigation Options -->
-      <nav class="p-4 space-y-2 text-xs">
-        <p class="px-3 text-[11px] uppercase tracking-wider text-indigo-300 font-extrabold mb-3">Coordinator Menu</p>
-        
-        <!-- 1. Dashboard -->
-        <a href="#dashboard" onclick="setActiveNav(this)" class="nav-item flex items-center space-x-3 px-3.5 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-extrabold shadow-md border border-white/20">
-          <i data-lucide="layout-dashboard" class="w-5 h-5 text-white"></i>
-          <span class="text-xs tracking-wide">Dashboard</span>
-        </a>
+<div class="login-box">
 
-        <!-- 2. Total Students -->
-        <a href="#total-students" onclick="setActiveNav(this)" class="nav-item flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-200 hover:bg-white/10 hover:text-white font-bold transition">
-          <i data-lucide="users" class="w-5 h-5 text-indigo-300"></i>
-          <span class="text-xs tracking-wide">Total Students</span>
-          <span class="ml-auto bg-blue-500/30 text-blue-200 text-[10px] px-2 py-0.5 rounded-full font-extrabold border border-blue-400/30">240</span>
-        </a>
+<div class="logo">
 
-        <!-- 3. Students Enrollment & Selection Journey -->
-        <a href="#journey" onclick="setActiveNav(this)" class="nav-item flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-200 hover:bg-white/10 hover:text-white font-bold transition">
-          <i data-lucide="git-commit" class="w-5 h-5 text-indigo-300"></i>
-          <span class="text-xs tracking-wide leading-tight">Enrollment & Selection Journey</span>
-        </a>
+<!-- Replace with MGIT Logo -->
+<img src="logo.png">
 
-        <!-- 4. Placed Students -->
-        <a href="#placed-students" onclick="setActiveNav(this)" class="nav-item flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-200 hover:bg-white/10 hover:text-white font-bold transition">
-          <i data-lucide="award" class="w-5 h-5 text-indigo-300"></i>
-          <span class="text-xs tracking-wide">Placed Students</span>
-          <span class="ml-auto bg-emerald-500/30 text-emerald-200 text-[10px] px-2 py-0.5 rounded-full font-extrabold border border-emerald-400/30">188</span>
-        </a>
+</div>
 
-        <!-- 5. Companies -->
-        <a href="#companies" onclick="setActiveNav(this)" class="nav-item flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-200 hover:bg-white/10 hover:text-white font-bold transition">
-          <i data-lucide="building-2" class="w-5 h-5 text-indigo-300"></i>
-          <span class="text-xs tracking-wide">Companies</span>
-          <span class="ml-auto bg-amber-500/30 text-amber-200 text-[10px] px-2 py-0.5 rounded-full font-extrabold border border-amber-400/30">12</span>
-        </a>
-      </nav>
-    </div>
+<h2>Department Placement Coordinator</h2>
 
-    <!-- Coordinator Profile Box at Bottom -->
-    <div class="p-4 border-t border-white/10 bg-black/30 backdrop-blur-md">
-      <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-500 to-indigo-600 text-white border border-white/20 flex items-center justify-center font-extrabold text-xs shadow-md">
-          CSE
-        </div>
-        <div class="overflow-hidden text-xs">
-          <p class="font-extrabold text-white truncate">Dr. M. Sravan</p>
-          <p class="text-indigo-200 font-bold text-[11px] truncate">CSE Dept Coordinator</p>
-        </div>
-      </div>
-    </div>
-  </aside>
+<p class="tagline">
+Monitor Student Progress • Track Placements • Support Career Success
+</p>
 
-  <!-- ================= MAIN CONTENT AREA (WHITE BACKGROUND) ================= -->
-  <main class="flex-1 p-8 overflow-y-auto max-w-7xl bg-white">
+<form>
 
-    <!-- Top Header Banner -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-200">
-      <div>
-        <div class="flex items-center space-x-2">
-          <span class="px-2.5 py-0.5 bg-blue-50 text-blue-700 border border-blue-200 rounded text-[10px] font-bold">DEPARTMENT OF COMPUTER SCIENCE</span>
-          <span class="text-xs text-slate-500 font-medium">| Academic Year 2025-26</span>
-        </div>
-        <h1 class="text-2xl font-black text-slate-900 mt-1">Department Placement Dashboard</h1>
-      </div>
+<div class="input-group">
 
-      <div class="flex items-center space-x-3">
-        <button class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg shadow-sm transition flex items-center space-x-2">
-          <i data-lucide="user-plus" class="w-4 h-4"></i>
-          <span>Verify Eligible Batch</span>
-        </button>
-      </div>
-    </div>
+<label>Academic Year</label>
 
-    <!-- KPI Metrics Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 shadow-sm">
-        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Dept Enrolled</p>
-        <h3 class="text-2xl font-black text-slate-900 mt-1">240 <span class="text-xs text-slate-500 font-bold">Students</span></h3>
-        <p class="text-xs text-emerald-600 mt-2 font-extrabold">232 Verified Eligible</p>
-      </div>
+<select>
+<option>2026-2027</option>
+<option>2025-2026</option>
+</select>
 
-      <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 shadow-sm">
-        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Dept Placed</p>
-        <h3 class="text-2xl font-black text-emerald-600 mt-1">188 <span class="text-xs text-slate-500 font-bold">(78.3%)</span></h3>
-        <p class="text-xs text-slate-500 mt-2 font-medium">Target: 90% by year-end</p>
-      </div>
+</div>
 
-      <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 shadow-sm">
-        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Interviews Today</p>
-        <h3 class="text-2xl font-black text-amber-600 mt-1">18 <span class="text-xs text-slate-500 font-bold">Students</span></h3>
-        <p class="text-xs text-amber-600 mt-2 font-extrabold">Amazon & Deloitte drives</p>
-      </div>
+<div class="input-group">
 
-      <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 shadow-sm">
-        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Dept Highest Offer</p>
-        <h3 class="text-2xl font-black text-indigo-600 mt-1">₹44 LPA</h3>
-        <p class="text-xs text-slate-500 mt-2 font-medium">Amazon SDE-1 Role</p>
-      </div>
-    </div>
+<label>Department</label>
 
-    <!-- Live Student Pipeline Tracker Section -->
-    <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 shadow-sm">
-      <div class="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-6">
-        <div>
-          <h2 class="text-lg font-extrabold text-slate-900">Department Student Candidate Tracker</h2>
-          <p class="text-xs text-slate-500 font-medium">Manage CSE student statuses, shortlist approvals, and selection journey</p>
-        </div>
+<select>
 
-        <!-- Filter Controls -->
-        <div class="flex flex-wrap gap-2">
-          <div class="relative">
-            <input type="text" id="searchInput" onkeyup="filterStudents()" placeholder="Search Name/Roll..." 
-                   class="bg-white border border-slate-300 text-xs rounded-lg px-3 py-2 pl-8 text-slate-800 font-semibold focus:outline-none focus:border-blue-500 w-44 shadow-sm">
-            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-2.5 top-2.5"></i>
-          </div>
+<option>Select Department</option>
 
-          <select id="statusFilter" onchange="filterStudents()" class="bg-white border border-slate-300 text-xs rounded-lg px-3 py-2 text-slate-800 font-semibold focus:outline-none focus:border-blue-500 shadow-sm">
-            <option value="ALL">All Statuses</option>
-            <option value="Eligible">Eligible</option>
-            <option value="Shortlisted">Shortlisted</option>
-            <option value="Interviewing">Interviewing</option>
-            <option value="Offered">Offered</option>
-          </select>
-        </div>
-      </div>
+<option>CSE</option>
+<option>CSM</option>
+<option>CSD</option>
+<option>IT</option>
+<option>ECE</option>
+<option>EEE</option>
+<option>MECH</option>
+<option>CIVIL</option>
 
-      <!-- Table Container -->
-      <div class="overflow-x-auto bg-white rounded-lg border border-slate-200 shadow-sm">
-        <table class="w-full text-left text-xs text-slate-700">
-          <thead class="bg-slate-100 text-slate-700 uppercase font-extrabold border-b border-slate-200">
-            <tr>
-              <th class="px-4 py-3">Roll Number</th>
-              <th class="px-4 py-3">Student Name</th>
-              <th class="px-4 py-3">CGPA</th>
-              <th class="px-4 py-3">Backlogs</th>
-              <th class="px-4 py-3">Current Company Drive</th>
-              <th class="px-4 py-3">Interview Round</th>
-              <th class="px-4 py-3">Status</th>
-              <th class="px-4 py-3 text-right">Action</th>
-            </tr>
-          </thead>
-          <tbody id="studentTableBody" class="divide-y divide-slate-100">
-            <!-- Rendered by JS -->
-          </tbody>
-        </table>
-      </div>
-    </div>
+</select>
 
-  </main>
+</div>
 
-  <!-- Interactive JavaScript -->
-  <script>
-    lucide.createIcons();
+<div class="input-group">
 
-    // Department Coordinator Specific Student Data
-    let cseStudents = [
-      { roll: "21261A0501", name: "Aarav Sharma", cgpa: "8.9", backlogs: 0, company: "Amazon", round: "Tech Round 2", status: "Interviewing" },
-      { roll: "21261A0512", name: "Ananya Reddy", cgpa: "9.2", backlogs: 0, company: "Oracle Financial", round: "Aptitude Test", status: "Shortlisted" },
-      { roll: "21261A0534", name: "K. Varun Teja", cgpa: "8.1", backlogs: 0, company: "Deloitte USI", round: "HR Interview", status: "Interviewing" },
-      { roll: "21261A0545", name: "Priya Varma", cgpa: "8.7", backlogs: 0, company: "Amazon", round: "Selected", status: "Offered" },
-      { roll: "21261A0560", name: "G. Rahul", cgpa: "7.8", backlogs: 1, company: "TCS Digital", round: "Document Verification", status: "Eligible" }
-    ];
+<label>Official Email</label>
 
-    function renderTable(data) {
-      const tbody = document.getElementById("studentTableBody");
-      tbody.innerHTML = "";
+<input type="email" placeholder="Enter College Email">
 
-      if(data.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400 font-bold">No department students found matching filters.</td></tr>`;
-        return;
-      }
+</div>
 
-      data.forEach((s, idx) => {
-        let statusBadge = "";
-        if(s.status === "Offered") statusBadge = `<span class="bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full font-extrabold border border-emerald-200">Offered</span>`;
-        else if(s.status === "Interviewing") statusBadge = `<span class="bg-amber-50 text-amber-700 px-2.5 py-1 rounded-full font-extrabold border border-amber-200">Interviewing</span>`;
-        else if(s.status === "Shortlisted") statusBadge = `<span class="bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full font-extrabold border border-blue-200">Shortlisted</span>`;
-        else statusBadge = `<span class="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-full font-bold border border-slate-200">Eligible</span>`;
+<div class="input-group">
 
-        const row = `
-          <tr class="hover:bg-slate-50 transition">
-            <td class="px-4 py-3 font-mono font-bold text-slate-900">${s.roll}</td>
-            <td class="px-4 py-3 font-bold text-slate-800">${s.name}</td>
-            <td class="px-4 py-3 font-semibold">${s.cgpa}</td>
-            <td class="px-4 py-3"><span class="${s.backlogs > 0 ? 'text-amber-600 font-extrabold' : 'text-slate-500 font-semibold'}">${s.backlogs}</span></td>
-            <td class="px-4 py-3 font-bold text-slate-800">${s.company}</td>
-            <td class="px-4 py-3 text-slate-500 font-medium">${s.round}</td>
-            <td class="px-4 py-3">${statusBadge}</td>
-            <td class="px-4 py-3 text-right">
-              <button onclick="advanceStatus(${idx})" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-800 px-2.5 py-1 rounded border border-slate-300 font-bold transition">
-                Update Status
-              </button>
-            </td>
-          </tr>
-        `;
-        tbody.innerHTML += row;
-      });
-    }
+<label>Password</label>
 
-    function filterStudents() {
-      const search = document.getElementById("searchInput").value.toLowerCase();
-      const status = document.getElementById("statusFilter").value;
+<input type="password" placeholder="Enter Password">
 
-      const filtered = cseStudents.filter(s => {
-        const matchesSearch = s.name.toLowerCase().includes(search) || s.roll.toLowerCase().includes(search);
-        const matchesStatus = status === "ALL" || s.status === status;
-        return matchesSearch && matchesStatus;
-      });
+</div>
 
-      renderTable(filtered);
-    }
+<div class="options">
 
-    function advanceStatus(index) {
-      const stages = ["Eligible", "Shortlisted", "Interviewing", "Offered"];
-      let currentIdx = stages.indexOf(cseStudents[index].status);
-      cseStudents[index].status = stages[(currentIdx + 1) % stages.length];
-      filterStudents();
-    }
+<label>
+<input type="checkbox">
+Remember Me
+</label>
 
-    function setActiveNav(element) {
-      document.querySelectorAll('.nav-item').forEach(el => {
-        el.className = "nav-item flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-200 hover:bg-white/10 hover:text-white font-bold transition";
-        const icon = el.querySelector('i');
-        if (icon) {
-          icon.classList.remove('text-white');
-          icon.classList.add('text-indigo-300');
-        }
-      });
-      element.className = "nav-item flex items-center space-x-3 px-3.5 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-extrabold shadow-md border border-white/20";
-      const activeIcon = element.querySelector('i');
-      if (activeIcon) {
-        activeIcon.classList.remove('text-indigo-300');
-        activeIcon.classList.add('text-white');
-      }
-    }
+<a href="#">Forgot Password?</a>
 
-    // Initial load
-    renderTable(cseStudents);
-  </script>
+</div>
+
+<button type="submit">
+
+LOGIN
+
+</button>
+
+</form>
+
+<div class="footer">
+
+MGIT Placement Portal<br>
+
+<span>Department Placement Coordinator Portal</span>
+
+</div>
+
+</div>
+
 </body>
 </html>
