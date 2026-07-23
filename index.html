@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MGIT - Placement Coordinator Portal</title>
+  <!-- Tailwind CSS CDN for styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen">
+
+  <!-- Top Navigation Bar -->
+  <nav class="bg-slate-800 border-b border-slate-700 px-6 py-4 flex flex-wrap justify-between items-center sticky top-0 z-50">
+    <div class="flex items-center space-x-3">
+      <div class="bg-blue-600 text-white p-2 rounded-lg font-bold text-lg">MGIT</div>
+      <div>
+        <h1 class="font-bold text-lg text-white leading-none">Mahatma Gandhi Institute of Technology</h1>
+        <p class="text-xs text-slate-400 mt-1">Training & Placement Cell | Coordinator Dashboard</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center space-x-4 mt-3 sm:mt-0">
+      <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 mr-2 animate-pulse"></span> Live System Sync
+      </span>
+      <div class="text-right hidden md:block">
+        <p class="text-sm font-semibold text-slate-200">Prof. K. Swamy</p>
+        <p class="text-xs text-slate-400">Chief Placement Coordinator</p>
+      </div>
+      <div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center font-bold text-blue-400 border border-slate-600">
+        KS
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="p-6 max-w-7xl mx-auto space-y-6">
+
+    <!-- KPI Metrics Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Registered Students</p>
+            <h3 class="text-2xl font-bold text-white mt-1">850</h3>
+          </div>
+          <div class="p-2 bg-blue-500/10 rounded-lg text-blue-400">
+            <i data-lucide="users" class="w-6 h-6"></i>
+          </div>
+        </div>
+        <p class="text-xs text-slate-400 mt-3"><span class="text-emerald-400 font-semibold">98%</span> batch eligibility verified</p>
+      </div>
+
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Placed Students</p>
+            <h3 class="text-2xl font-bold text-emerald-400 mt-1">620 <span class="text-xs text-slate-400 font-normal">(72.9%)</span></h3>
+          </div>
+          <div class="p-2 bg-emerald-500/10 rounded-lg text-emerald-400">
+            <i data-lucide="check-circle-2" class="w-6 h-6"></i>
+          </div>
+        </div>
+        <p class="text-xs text-slate-400 mt-3"><span class="text-emerald-400 font-semibold">+45</span> offers added this week</p>
+      </div>
+
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Active Campus Drives</p>
+            <h3 class="text-2xl font-bold text-amber-400 mt-1">12</h3>
+          </div>
+          <div class="p-2 bg-amber-500/10 rounded-lg text-amber-400">
+            <i data-lucide="briefcase" class="w-6 h-6"></i>
+          </div>
+        </div>
+        <p class="text-xs text-slate-400 mt-3"><span class="text-amber-400 font-semibold">4</span> drives conducting interviews today</p>
+      </div>
+
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Highest / Avg CTC</p>
+            <h3 class="text-2xl font-bold text-purple-400 mt-1">₹44L <span class="text-slate-400 font-normal text-sm">/ ₹8.5L</span></h3>
+          </div>
+          <div class="p-2 bg-purple-500/10 rounded-lg text-purple-400">
+            <i data-lucide="trending-up" class="w-6 h-6"></i>
+          </div>
+        </div>
+        <p class="text-xs text-slate-400 mt-3">Highest offered by Amazon</p>
+      </div>
+    </div>
+
+    <!-- Active Drives Section -->
+    <div class="bg-slate-800 border border-slate-700 rounded-xl p-6">
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <h2 class="text-lg font-bold text-white">Ongoing & Upcoming Drives</h2>
+          <p class="text-xs text-slate-400">Manage schedules, eligibility cutoffs, and application rounds</p>
+        </div>
+        <button class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold px-4 py-2 rounded-lg transition flex items-center space-x-2">
+          <i data-lucide="plus" class="w-4 h-4"></i>
+          <span>Schedule New Drive</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Drive Card 1 -->
+        <div class="bg-slate-900/60 border border-slate-700/60 rounded-lg p-4">
+          <div class="flex justify-between items-start">
+            <span class="text-xs px-2 py-1 bg-amber-500/10 text-amber-400 rounded border border-amber-500/20">Round 2: Technical</span>
+            <span class="text-xs text-slate-400">CSE, IT, ECE</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mt-2">Amazon</h3>
+          <p class="text-xs text-slate-400">Role: SDE-1 | CTC: ₹44.0 LPA</p>
+          <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-xs">
+            <span class="text-slate-400">Shortlisted: <strong class="text-slate-200">28</strong></span>
+            <button class="text-blue-400 hover:underline">Manage Drive &rarr;</button>
+          </div>
+        </div>
+
+        <!-- Drive Card 2 -->
+        <div class="bg-slate-900/60 border border-slate-700/60 rounded-lg p-4">
+          <div class="flex justify-between items-start">
+            <span class="text-xs px-2 py-1 bg-emerald-500/10 text-emerald-400 rounded border border-emerald-500/20">Final HR Round</span>
+            <span class="text-xs text-slate-400">All Branches</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mt-2">Deloitte USI</h3>
+          <p class="text-xs text-slate-400">Role: Analyst | CTC: ₹7.6 LPA</p>
+          <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-xs">
+            <span class="text-slate-400">Shortlisted: <strong class="text-slate-200">84</strong></span>
+            <button class="text-blue-400 hover:underline">Manage Drive &rarr;</button>
+          </div>
+        </div>
+
+        <!-- Drive Card 3 -->
+        <div class="bg-slate-900/60 border border-slate-700/60 rounded-lg p-4">
+          <div class="flex justify-between items-start">
+            <span class="text-xs px-2 py-1 bg-blue-500/10 text-blue-400 rounded border border-blue-500/20">Applications Open</span>
+            <span class="text-xs text-slate-400">CSE, IT</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mt-2">Oracle Financial</h3>
+          <p class="text-xs text-slate-400">Role: Application Engineer | CTC: ₹18.0 LPA</p>
+          <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-xs">
+            <span class="text-slate-400">Applied: <strong class="text-slate-200">142</strong></span>
+            <button class="text-blue-400 hover:underline">Manage Drive &rarr;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Student Applications Table & Controls -->
+    <div class="bg-slate-800 border border-slate-700 rounded-xl p-6">
+      <div class="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-6">
+        <div>
+          <h2 class="text-lg font-bold text-white">Live Student Pipeline Tracker</h2>
+          <p class="text-xs text-slate-400">Filter students by branch, company drive, and update interview progress</p>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          <!-- Search input -->
+          <div class="relative">
+            <input type="text" id="searchInput" onkeyup="filterStudents()" placeholder="Search Name or Roll No..." 
+                   class="bg-slate-900 border border-slate-700 text-xs rounded-lg px-3 py-2 pl-8 text-slate-200 focus:outline-none focus:border-blue-500 w-48">
+            <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-2.5 top-2.5"></i>
+          </div>
+
+          <!-- Branch Filter -->
+          <select id="branchFilter" onchange="filterStudents()" class="bg-slate-900 border border-slate-700 text-xs rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500">
+            <option value="ALL">All Branches</option>
+            <option value="CSE">CSE</option>
+            <option value="IT">IT</option>
+            <option value="ECE">ECE</option>
+            <option value="EEE">EEE</option>
+            <option value="MECH">Mechanical</option>
+          </select>
+
+          <!-- Status Filter -->
+          <select id="statusFilter" onchange="filterStudents()" class="bg-slate-900 border border-slate-700 text-xs rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500">
+            <option value="ALL">All Statuses</option>
+            <option value="Applied">Applied</option>
+            <option value="Shortlisted">Shortlisted</option>
+            <option value="Interviewing">Interviewing</option>
+            <option value="Offered">Offered</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Table Container -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs text-slate-300">
+          <thead class="bg-slate-900/80 text-slate-400 uppercase font-medium border-b border-slate-700">
+            <tr>
+              <th class="px-4 py-3">Roll Number</th>
+              <th class="px-4 py-3">Student Name</th>
+              <th class="px-4 py-3">Branch</th>
+              <th class="px-4 py-3">CGPA</th>
+              <th class="px-4 py-3">Target Drive</th>
+              <th class="px-4 py-3">Current Round</th>
+              <th class="px-4 py-3">Status</th>
+              <th class="px-4 py-3 text-right">Action</th>
+            </tr>
+          </thead>
+          <tbody id="studentTableBody" class="divide-y divide-slate-700/50">
+            <!-- Dynamic rows will be rendered here by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- JavaScript logic -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Sample Student Data
+    let students = [
+      { roll: "21261A0501", name: "Aarav Sharma", branch: "CSE", cgpa: "8.9", company: "Amazon", round: "Tech Round 2", status: "Interviewing" },
+      { roll: "21261A0584", name: "Ananya Reddy", branch: "CSE", cgpa: "9.2", company: "Oracle Financial", round: "Aptitude Test", status: "Shortlisted" },
+      { roll: "21261A1212", name: "K. Sai Teja", branch: "IT", cgpa: "8.4", company: "Deloitte USI", round: "HR Interview", status: "Interviewing" },
+      { roll: "21261A0415", name: "Priya Varma", branch: "ECE", cgpa: "8.7", company: "Amazon", round: "Final Offer", status: "Offered" },
+      { roll: "21261A0208", name: "Rohan Kumar", branch: "EEE", cgpa: "7.9", company: "TCS Digital", round: "Technical Round", status: "Shortlisted" },
+      { roll: "21261A0304", name: "V. Srikanth", branch: "MECH", cgpa: "8.1", company: "Deloitte USI", round: "Resume Screening", status: "Applied" },
+    ];
+
+    function renderStudents(data) {
+      const tbody = document.getElementById("studentTableBody");
+      tbody.innerHTML = "";
+
+      if(data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-500">No students found matching filters.</td></tr>`;
+        return;
+      }
+
+      data.forEach((s, idx) => {
+        let statusBadge = "";
+        if(s.status === "Offered") statusBadge = `<span class="bg-emerald-500/10 text-emerald-400 px-2.5 py-1 rounded-full font-medium border border-emerald-500/20">Offered</span>`;
+        else if(s.status === "Interviewing") statusBadge = `<span class="bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-full font-medium border border-amber-500/20">Interviewing</span>`;
+        else if(s.status === "Shortlisted") statusBadge = `<span class="bg-blue-500/10 text-blue-400 px-2.5 py-1 rounded-full font-medium border border-blue-500/20">Shortlisted</span>`;
+        else statusBadge = `<span class="bg-slate-700 text-slate-300 px-2.5 py-1 rounded-full font-medium">Applied</span>`;
+
+        const row = `
+          <tr class="hover:bg-slate-700/30 transition">
+            <td class="px-4 py-3 font-mono font-medium text-slate-200">${s.roll}</td>
+            <td class="px-4 py-3 font-semibold text-white">${s.name}</td>
+            <td class="px-4 py-3">${s.branch}</td>
+            <td class="px-4 py-3">${s.cgpa}</td>
+            <td class="px-4 py-3 font-medium text-slate-200">${s.company}</td>
+            <td class="px-4 py-3 text-slate-400">${s.round}</td>
+            <td class="px-4 py-3">${statusBadge}</td>
+            <td class="px-4 py-3 text-right">
+              <button onclick="toggleStatus(${idx})" class="text-xs bg-slate-700 hover:bg-slate-600 px-2.5 py-1 rounded border border-slate-600 transition">
+                Advance Status
+              </button>
+            </td>
+          </tr>
+        `;
+        tbody.innerHTML += row;
+      });
+    }
+
+    function filterStudents() {
+      const search = document.getElementById("searchInput").value.toLowerCase();
+      const branch = document.getElementById("branchFilter").value;
+      const status = document.getElementById("statusFilter").value;
+
+      const filtered = students.filter(s => {
+        const matchesSearch = s.name.toLowerCase().includes(search) || s.roll.toLowerCase().includes(search);
+        const matchesBranch = branch === "ALL" || s.branch === branch;
+        const matchesStatus = status === "ALL" || s.status === status;
+        return matchesSearch && matchesBranch && matchesStatus;
+      });
+
+      renderStudents(filtered);
+    }
+
+    function toggleStatus(index) {
+      const statuses = ["Applied", "Shortlisted", "Interviewing", "Offered"];
+      let currentIdx = statuses.indexOf(students[index].status);
+      students[index].status = statuses[(currentIdx + 1) % statuses.length];
+      filterStudents();
+    }
+
+    // Initial Render
+    renderStudents(students);
+  </script>
+</body>
+</html>
