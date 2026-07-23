@@ -9,143 +9,143 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans min-h-screen flex">
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex">
 
-  <!-- ================= LEFT SIDEBAR ================= -->
-  <aside class="w-64 bg-slate-800 border-r border-slate-700 flex flex-col justify-between shrink-0 min-h-screen sticky top-0 h-screen">
+  <!-- ================= LEFT SIDEBAR WITH GRADIENT ================= -->
+  <aside class="w-64 bg-gradient-to-b from-slate-900 via-indigo-950 to-blue-950 border-r border-slate-800 flex flex-col justify-between shrink-0 min-h-screen sticky top-0 h-screen shadow-xl text-slate-200">
     <div>
       <!-- College & Dept Header -->
-      <div class="p-5 border-b border-slate-700 flex items-center space-x-3">
-        <div class="bg-blue-600 text-white font-black text-xl p-2 rounded-lg">MGIT</div>
+      <div class="p-5 border-b border-white/10 flex items-center space-x-3 bg-white/5 backdrop-blur-sm">
+        <div class="bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-black text-xl p-2 rounded-lg shadow-md">MGIT</div>
         <div>
           <h1 class="font-bold text-sm text-white leading-snug">Placement Portal</h1>
-          <p class="text-xs text-blue-400 font-medium">Department Coordinator</p>
+          <p class="text-xs text-blue-300 font-medium">Department Coordinator</p>
         </div>
       </div>
 
       <!-- Mandatory Navigation Options for Department Coordinator -->
       <nav class="p-4 space-y-1 text-xs">
-        <p class="px-3 text-[10px] uppercase tracking-wider text-slate-500 font-semibold mb-2">Main Menu</p>
+        <p class="px-3 text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-2">Main Menu</p>
         
-        <a href="#dashboard" onclick="setActiveNav(this)" class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-blue-600/10 text-blue-400 font-medium border border-blue-500/20">
-          <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+        <a href="#dashboard" onclick="setActiveNav(this)" class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-white/10 text-white font-medium border border-white/20 shadow-sm backdrop-blur-md">
+          <i data-lucide="layout-dashboard" class="w-4 h-4 text-blue-400"></i>
           <span>Department Dashboard</span>
         </a>
 
-        <a href="#drives" onclick="setActiveNav(this)" class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-slate-200 transition">
-          <i data-lucide="briefcase" class="w-4 h-4"></i>
+        <a href="#drives" onclick="setActiveNav(this)" class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/10 hover:text-white transition">
+          <i data-lucide="briefcase" class="w-4 h-4 text-slate-400"></i>
           <span>Company Drives</span>
-          <span class="ml-auto bg-amber-500/10 text-amber-400 text-[10px] px-1.5 py-0.5 rounded font-semibold border border-amber-500/20">12</span>
+          <span class="ml-auto bg-amber-400/20 text-amber-300 text-[10px] px-1.5 py-0.5 rounded font-semibold border border-amber-400/30">12</span>
         </a>
 
-        <a href="#verification" onclick="setActiveNav(this)" class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-slate-200 transition">
-          <i data-lucide="user-check" class="w-4 h-4"></i>
+        <a href="#verification" onclick="setActiveNav(this)" class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/10 hover:text-white transition">
+          <i data-lucide="user-check" class="w-4 h-4 text-slate-400"></i>
           <span>Student Eligibility Check</span>
         </a>
 
-        <a href="#slots" onclick="setActiveNav(this)" class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-slate-200 transition">
-          <i data-lucide="calendar" class="w-4 h-4"></i>
+        <a href="#slots" onclick="setActiveNav(this)" class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/10 hover:text-white transition">
+          <i data-lucide="calendar" class="w-4 h-4 text-slate-400"></i>
           <span>Interview Slot Manager</span>
         </a>
 
-        <a href="#offers" onclick="setActiveNav(this)" class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-slate-200 transition">
-          <i data-lucide="file-check" class="w-4 h-4"></i>
+        <a href="#offers" onclick="setActiveNav(this)" class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/10 hover:text-white transition">
+          <i data-lucide="file-check" class="w-4 h-4 text-slate-400"></i>
           <span>Offer Letters & Results</span>
         </a>
 
-        <p class="px-3 text-[10px] uppercase tracking-wider text-slate-500 font-semibold mt-6 mb-2">Department Tools</p>
+        <p class="px-3 text-[10px] uppercase tracking-wider text-slate-400 font-semibold mt-6 mb-2">Department Tools</p>
 
-        <a href="#broadcast" onclick="setActiveNav(this)" class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-slate-200 transition">
-          <i data-lucide="mega-phone" class="w-4 h-4"></i>
+        <a href="#broadcast" onclick="setActiveNav(this)" class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/10 hover:text-white transition">
+          <i data-lucide="mega-phone" class="w-4 h-4 text-slate-400"></i>
           <span>Dept Announcements</span>
         </a>
 
-        <a href="#reports" onclick="setActiveNav(this)" class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-slate-200 transition">
-          <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+        <a href="#reports" onclick="setActiveNav(this)" class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/10 hover:text-white transition">
+          <i data-lucide="bar-chart-2" class="w-4 h-4 text-slate-400"></i>
           <span>Placement Analytics</span>
         </a>
       </nav>
     </div>
 
     <!-- Coordinator Profile Box at Bottom -->
-    <div class="p-4 border-t border-slate-700 bg-slate-800/50">
+    <div class="p-4 border-t border-white/10 bg-black/20 backdrop-blur-md">
       <div class="flex items-center space-x-3">
-        <div class="w-9 h-9 rounded-full bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center font-bold text-xs">
+        <div class="w-9 h-9 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30 flex items-center justify-center font-bold text-xs shadow-inner">
           CSE
         </div>
         <div class="overflow-hidden text-xs">
           <p class="font-bold text-white truncate">Dr. M. Sravan</p>
-          <p class="text-slate-400 truncate">CSE Dept Coordinator</p>
+          <p class="text-slate-300 truncate">CSE Dept Coordinator</p>
         </div>
       </div>
     </div>
   </aside>
 
-  <!-- ================= MAIN CONTENT AREA ================= -->
-  <main class="flex-1 p-8 overflow-y-auto max-w-7xl">
+  <!-- ================= MAIN CONTENT AREA (WHITE BACKGROUND) ================= -->
+  <main class="flex-1 p-8 overflow-y-auto max-w-7xl bg-white">
 
     <!-- Top Header Banner -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-800">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-200">
       <div>
         <div class="flex items-center space-x-2">
-          <span class="px-2 py-0.5 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded text-[10px] font-semibold">DEPARTMENT OF COMPUTER SCIENCE</span>
+          <span class="px-2.5 py-0.5 bg-blue-50 text-blue-700 border border-blue-200 rounded text-[10px] font-semibold">DEPARTMENT OF COMPUTER SCIENCE</span>
           <span class="text-xs text-slate-500">| Academic Year 2025-26</span>
         </div>
-        <h1 class="text-2xl font-bold text-white mt-1">Department Placement Dashboard</h1>
+        <h1 class="text-2xl font-bold text-slate-900 mt-1">Department Placement Dashboard</h1>
       </div>
 
       <div class="flex items-center space-x-3">
-        <button class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold px-4 py-2.5 rounded-lg transition flex items-center space-x-2">
+        <button class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm transition flex items-center space-x-2">
           <i data-lucide="user-plus" class="w-4 h-4"></i>
           <span>Verify Eligible Batch</span>
         </button>
       </div>
     </div>
 
-    <!-- KPI Metrics -->
+    <!-- KPI Metrics Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">
-        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Dept Enrolled</p>
-        <h3 class="text-2xl font-bold text-white mt-1">240 <span class="text-xs text-slate-400 font-normal">Students</span></h3>
-        <p class="text-xs text-emerald-400 mt-2 font-medium">232 Verified Eligible</p>
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 shadow-sm">
+        <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Dept Enrolled</p>
+        <h3 class="text-2xl font-bold text-slate-900 mt-1">240 <span class="text-xs text-slate-500 font-normal">Students</span></h3>
+        <p class="text-xs text-emerald-600 mt-2 font-medium">232 Verified Eligible</p>
       </div>
 
-      <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">
-        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Dept Placed</p>
-        <h3 class="text-2xl font-bold text-emerald-400 mt-1">188 <span class="text-xs text-slate-400 font-normal">(78.3%)</span></h3>
-        <p class="text-xs text-slate-400 mt-2">Target: 90% by year-end</p>
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 shadow-sm">
+        <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Dept Placed</p>
+        <h3 class="text-2xl font-bold text-emerald-600 mt-1">188 <span class="text-xs text-slate-500 font-normal">(78.3%)</span></h3>
+        <p class="text-xs text-slate-500 mt-2">Target: 90% by year-end</p>
       </div>
 
-      <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">
-        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Interviews Today</p>
-        <h3 class="text-2xl font-bold text-amber-400 mt-1">18 <span class="text-xs text-slate-400 font-normal">Students</span></h3>
-        <p class="text-xs text-amber-400 mt-2 font-medium">Amazon & Deloitte drives</p>
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 shadow-sm">
+        <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Interviews Today</p>
+        <h3 class="text-2xl font-bold text-amber-600 mt-1">18 <span class="text-xs text-slate-500 font-normal">Students</span></h3>
+        <p class="text-xs text-amber-600 mt-2 font-medium">Amazon & Deloitte drives</p>
       </div>
 
-      <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">
-        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Dept Highest Offer</p>
-        <h3 class="text-2xl font-bold text-purple-400 mt-1">₹44 LPA</h3>
-        <p class="text-xs text-slate-400 mt-2">Amazon SDE-1 Role</p>
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 shadow-sm">
+        <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Dept Highest Offer</p>
+        <h3 class="text-2xl font-bold text-indigo-600 mt-1">₹44 LPA</h3>
+        <p class="text-xs text-slate-500 mt-2">Amazon SDE-1 Role</p>
       </div>
     </div>
 
     <!-- Live Student Pipeline Tracker Section -->
-    <div class="bg-slate-800 border border-slate-700 rounded-xl p-6">
+    <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 shadow-sm">
       <div class="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-6">
         <div>
-          <h2 class="text-lg font-bold text-white">Department Student Candidate Tracker</h2>
-          <p class="text-xs text-slate-400">Manage CSE student statuses, shortlist approvals, and round progressions</p>
+          <h2 class="text-lg font-bold text-slate-900">Department Student Candidate Tracker</h2>
+          <p class="text-xs text-slate-500">Manage CSE student statuses, shortlist approvals, and round progressions</p>
         </div>
 
         <!-- Filter Controls -->
         <div class="flex flex-wrap gap-2">
           <div class="relative">
             <input type="text" id="searchInput" onkeyup="filterStudents()" placeholder="Search Name/Roll..." 
-                   class="bg-slate-900 border border-slate-700 text-xs rounded-lg px-3 py-2 pl-8 text-slate-200 focus:outline-none focus:border-blue-500 w-44">
-            <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-2.5 top-2.5"></i>
+                   class="bg-white border border-slate-300 text-xs rounded-lg px-3 py-2 pl-8 text-slate-800 focus:outline-none focus:border-blue-500 w-44 shadow-sm">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-2.5 top-2.5"></i>
           </div>
 
-          <select id="statusFilter" onchange="filterStudents()" class="bg-slate-900 border border-slate-700 text-xs rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500">
+          <select id="statusFilter" onchange="filterStudents()" class="bg-white border border-slate-300 text-xs rounded-lg px-3 py-2 text-slate-800 focus:outline-none focus:border-blue-500 shadow-sm">
             <option value="ALL">All Statuses</option>
             <option value="Eligible">Eligible</option>
             <option value="Shortlisted">Shortlisted</option>
@@ -156,9 +156,9 @@
       </div>
 
       <!-- Table Container -->
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs text-slate-300">
-          <thead class="bg-slate-900/80 text-slate-400 uppercase font-medium border-b border-slate-700">
+      <div class="overflow-x-auto bg-white rounded-lg border border-slate-200 shadow-sm">
+        <table class="w-full text-left text-xs text-slate-700">
+          <thead class="bg-slate-100 text-slate-600 uppercase font-semibold border-b border-slate-200">
             <tr>
               <th class="px-4 py-3">Roll Number</th>
               <th class="px-4 py-3">Student Name</th>
@@ -170,7 +170,7 @@
               <th class="px-4 py-3 text-right">Action</th>
             </tr>
           </thead>
-          <tbody id="studentTableBody" class="divide-y divide-slate-700/50">
+          <tbody id="studentTableBody" class="divide-y divide-slate-100">
             <!-- Rendered by JS -->
           </tbody>
         </table>
@@ -197,28 +197,28 @@
       tbody.innerHTML = "";
 
       if(data.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-500">No department students found matching filters.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400">No department students found matching filters.</td></tr>`;
         return;
       }
 
       data.forEach((s, idx) => {
         let statusBadge = "";
-        if(s.status === "Offered") statusBadge = `<span class="bg-emerald-500/10 text-emerald-400 px-2.5 py-1 rounded-full font-medium border border-emerald-500/20">Offered</span>`;
-        else if(s.status === "Interviewing") statusBadge = `<span class="bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-full font-medium border border-amber-500/20">Interviewing</span>`;
-        else if(s.status === "Shortlisted") statusBadge = `<span class="bg-blue-500/10 text-blue-400 px-2.5 py-1 rounded-full font-medium border border-blue-500/20">Shortlisted</span>`;
-        else statusBadge = `<span class="bg-slate-700 text-slate-300 px-2.5 py-1 rounded-full font-medium">Eligible</span>`;
+        if(s.status === "Offered") statusBadge = `<span class="bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full font-semibold border border-emerald-200">Offered</span>`;
+        else if(s.status === "Interviewing") statusBadge = `<span class="bg-amber-50 text-amber-700 px-2.5 py-1 rounded-full font-semibold border border-amber-200">Interviewing</span>`;
+        else if(s.status === "Shortlisted") statusBadge = `<span class="bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full font-semibold border border-blue-200">Shortlisted</span>`;
+        else statusBadge = `<span class="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-full font-medium border border-slate-200">Eligible</span>`;
 
         const row = `
-          <tr class="hover:bg-slate-700/30 transition">
-            <td class="px-4 py-3 font-mono font-medium text-slate-200">${s.roll}</td>
-            <td class="px-4 py-3 font-semibold text-white">${s.name}</td>
+          <tr class="hover:bg-slate-50 transition">
+            <td class="px-4 py-3 font-mono font-medium text-slate-900">${s.roll}</td>
+            <td class="px-4 py-3 font-semibold text-slate-800">${s.name}</td>
             <td class="px-4 py-3">${s.cgpa}</td>
-            <td class="px-4 py-3"><span class="${s.backlogs > 0 ? 'text-amber-400' : 'text-slate-400'}">${s.backlogs}</span></td>
-            <td class="px-4 py-3 font-medium text-slate-200">${s.company}</td>
-            <td class="px-4 py-3 text-slate-400">${s.round}</td>
+            <td class="px-4 py-3"><span class="${s.backlogs > 0 ? 'text-amber-600 font-semibold' : 'text-slate-500'}">${s.backlogs}</span></td>
+            <td class="px-4 py-3 font-medium text-slate-800">${s.company}</td>
+            <td class="px-4 py-3 text-slate-500">${s.round}</td>
             <td class="px-4 py-3">${statusBadge}</td>
             <td class="px-4 py-3 text-right">
-              <button onclick="advanceStatus(${idx})" class="text-xs bg-slate-700 hover:bg-slate-600 px-2.5 py-1 rounded border border-slate-600 transition">
+              <button onclick="advanceStatus(${idx})" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded border border-slate-300 font-medium transition">
                 Update Status
               </button>
             </td>
@@ -250,9 +250,9 @@
 
     function setActiveNav(element) {
       document.querySelectorAll('.nav-item').forEach(el => {
-        el.className = "nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-700/50 hover:text-slate-200 transition";
+        el.className = "nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/10 hover:text-white transition";
       });
-      element.className = "nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-blue-600/10 text-blue-400 font-medium border border-blue-500/20";
+      element.className = "nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-white/10 text-white font-medium border border-white/20 shadow-sm backdrop-blur-md";
     }
 
     // Initial load
