@@ -6,92 +6,108 @@
 <title>Department Placement Coordinator Login</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: "Segoe UI", Arial, sans-serif;
 }
 
-body{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#0F172A; /* Professional Dark Navy */
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0F172A; /* Professional Dark Navy */
+    padding: 20px;
 }
 
-.login-box{
-    width:360px;
-    background:#ffffff;
-    padding:35px;
-    border-radius:15px;
-    box-shadow:0 15px 35px rgba(0,0,0,0.35);
+.login-box {
+    width: 100%;
+    max-width: 380px;
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.35);
 }
 
-h2{
-    text-align:center;
-    color:#0F172A;
-    margin-bottom:8px;
-    font-size:26px;
+h2 {
+    text-align: center;
+    color: #0F172A;
+    margin-bottom: 8px;
+    font-size: 26px;
 }
 
-.subtitle{
-    text-align:center;
-    color:#64748B;
-    font-size:14px;
-    margin-bottom:28px;
+.subtitle {
+    text-align: center;
+    color: #64748B;
+    font-size: 14px;
+    margin-bottom: 24px;
 }
 
-.input-group{
-    margin-bottom:18px;
+.input-group {
+    margin-bottom: 18px;
 }
 
-label{
-    display:block;
-    font-size:14px;
-    font-weight:600;
-    color:#334155;
-    margin-bottom:7px;
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 7px;
 }
 
-input{
-    width:100%;
-    padding:12px 14px;
-    border:1px solid #CBD5E1;
-    border-radius:8px;
-    font-size:15px;
-    outline:none;
-    transition:0.3s;
+input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.3s;
 }
 
-input:focus{
-    border-color:#2563EB;
-    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+input:focus {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 3px rgba(37,99,235,.15);
 }
 
-button{
-    width:100%;
-    padding:13px;
-    border:none;
-    border-radius:8px;
-    background:#2563EB;
-    color:white;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    transition:.3s;
+/* Red Error Box for Invalid Login */
+.error-message {
+    display: none;
+    background-color: #FEE2E2;
+    color: #DC2626;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    text-align: center;
+    border: 1px solid #FCA5A5;
 }
 
-button:hover{
-    background:#1D4ED8;
+button {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: #2563EB;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
 }
 
-.footer{
-    margin-top:22px;
-    text-align:center;
-    color:#64748B;
-    font-size:13px;
+button:hover {
+    background: #1D4ED8;
+}
+
+.footer {
+    margin-top: 22px;
+    text-align: center;
+    color: #64748B;
+    font-size: 13px;
 }
 </style>
 
@@ -106,16 +122,21 @@ button:hover{
         Department Placement Coordinator Portal
     </p>
 
-    <form>
+    <!-- Error Alert Box -->
+    <div id="error-msg" class="error-message">
+        Invalid Email ID or Password!
+    </div>
+
+    <form id="loginForm">
 
         <div class="input-group">
-            <label>Email ID</label>
-            <input type="email" placeholder="Enter your official email" required>
+            <label for="email">Email ID</label>
+            <input type="email" id="email" placeholder="Enter your official email" required>
         </div>
 
         <div class="input-group">
-            <label>Password</label>
-            <input type="password" placeholder="Enter your password" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" required>
         </div>
 
         <button type="submit">Login</button>
@@ -127,6 +148,41 @@ button:hover{
     </div>
 
 </div>
+
+<script>
+    // Allowed credentials list (easily add new users here later)
+    const validCredentials = [
+        { email: "ecepco@mgit.ac.in", password: "12345", department: "ECE Department" },
+        
+        // Example: Add more accounts here in the future
+        // { email: "csepco@mgit.ac.in", password: "yourpassword", department: "CSE Department" },
+        // { email: "mechepco@mgit.ac.in", password: "yourpassword", department: "MECH Department" }
+    ];
+
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Stop form from refreshing the page
+
+        const emailInput = document.getElementById('email').value.trim();
+        const passwordInput = document.getElementById('password').value;
+        const errorMsg = document.getElementById('error-msg');
+
+        // Check if user exists in the validCredentials array
+        const userMatch = validCredentials.find(user => 
+            user.email.toLowerCase() === emailInput.toLowerCase() && user.password === passwordInput
+        );
+
+        if (userMatch) {
+            // Save user info to local storage so the next page knows who logged in
+            localStorage.setItem('currentUser', JSON.stringify(userMatch));
+
+            // Redirect to dashboard
+            window.location.href = "mgit_coordinator_dashboard.html";
+        } else {
+            // Display error alert
+            errorMsg.style.display = "block";
+        }
+    });
+</script>
 
 </body>
 </html>
