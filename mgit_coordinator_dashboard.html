@@ -57,6 +57,22 @@
         .brand-title h1 { font-size: 18px; }
         .brand-title span { font-size: 12px; color: #94A3B8; }
 
+        .user-nav {
+            font-size: 13px;
+            color: #94A3B8;
+        }
+
+        .user-nav strong {
+            color: white;
+        }
+
+        .logout-link {
+            color: #EF4444;
+            text-decoration: none;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+
         .container {
             max-width: 1380px;
             width: 100%;
@@ -71,6 +87,27 @@
             padding: 20px 24px;
             border-radius: 12px;
             border: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .header-title h2 {
+            font-size: 22px;
+            color: var(--navy-dark);
+        }
+
+        .filter-badge {
+            display: inline-block;
+            background: #EFF6FF;
+            color: var(--primary-blue);
+            border: 1px solid #BFDBFE;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
         }
 
         /* Table Area */
@@ -163,24 +200,33 @@
             <div class="logo-badge">MGIT</div>
             <div class="brand-title">
                 <h1>Placement & Higher Education Portal</h1>
-                <span>Department Placement Coordinator View</span>
+                <span>Coordinator Dashboard</span>
             </div>
+        </div>
+        <div class="user-nav">
+            Logged in as: <strong id="user-email-display">ecepco@mgit.ac.in</strong>
+            <a href="login.html" class="logout-link">Logout</a>
         </div>
     </nav>
 
     <div class="container">
         <div class="page-header">
-            <h2>Student Progression Details</h2>
-            <p style="color: #64748B; font-size: 14px;">Dynamic columns streaming live from Google Sheets.</p>
+            <div class="header-title">
+                <h2>Student Progression Details</h2>
+                <p style="color: #64748B; font-size: 14px;">Live data stream dynamically filtered by logged-in coordinator role.</p>
+            </div>
+            <div id="active-filter-badge" class="filter-badge">
+                🎓 Active Filter: 2026 Batch | Detecting Department...
+            </div>
         </div>
 
         <div class="table-section">
             <div class="table-toolbar">
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Search across all columns..." onkeyup="filterTable()">
+                    <input type="text" id="searchInput" placeholder="Search Roll No, Name, Company..." onkeyup="filterTable()">
                 </div>
                 <div id="total-count" style="font-size:14px; font-weight:600; color:#64748B;">
-                    Loading Google Sheet...
+                    Filtering Google Sheet...
                 </div>
             </div>
 
@@ -188,7 +234,7 @@
                 <thead id="table-head"></thead>
                 <tbody id="table-body">
                     <tr>
-                        <td class="loading-text" colspan="100%">⏳ Syncing dynamic columns from Google Sheet...</td>
+                        <td class="loading-text" colspan="100%">⏳ Fetching student data for your department...</td>
                     </tr>
                 </tbody>
             </table>
@@ -206,8 +252,26 @@
     let sheetHeaders = [];
     let sheetRowsData = [];
 
+    // Helper: Extract Department Code from Email ID (e.g. "ecepco@mgit.ac.in" -> "ECE")
+    function getBranchFromEmail(email) {
+        if (!email) return "ECE";
+        const emailPrefix = email.split('@')[0].toLowerCase(); // "ecepco"
+        const branchCode = emailPrefix.replace('pco', '').toUpperCase(); // "ECE"
+        return branchCode || "ECE";
+    }
+
     async function fetchCSVData() {
         try {
+            // 1. Get logged-in user from localStorage (Fallback to ecepco@mgit.ac.in)
+            const storedUser = JSON.parse(localStorage.getItem('currentUser')) || { email: "ecepco@mgit.ac.in" };
+            const userEmail = storedUser.email;
+            const userBranch = getBranchFromEmail(userEmail);
+
+            // Update UI elements
+            document.getElementById('user-email-display').innerText = userEmail;
+            document.getElementById('active-filter-badge').innerText = `🎓 Active Filter: 2026 Batch | ${userBranch} Department`;
+
+            // 2. Fetch CSV Data from Google Sheet
             const response = await fetch(PUBLISHED_CSV_URL);
             if (!response.ok) throw new Error("Failed to fetch sheet data");
 
@@ -220,12 +284,11 @@
                 return;
             }
 
-            // DYNAMIC COLUMN EXTRACTION:
-            // Extract row 1 as column names, trimming whitespace and filtering out empty column headers
+            // Extract dynamic headers from Row 1
             sheetHeaders = parsedLines[0].map(h => h.trim()).filter(h => h !== '');
 
-            // Build dynamic row objects mapped strictly to the extracted column names
-            sheetRowsData = parsedLines.slice(1).map(rowValues => {
+            // Convert raw lines to JS Objects
+            const allParsedRows = parsedLines.slice(1).map(rowValues => {
                 const rowObj = {};
                 sheetHeaders.forEach((header, index) => {
                     rowObj[header] = rowValues[index] !== undefined ? rowValues[index].trim() : "";
@@ -233,7 +296,36 @@
                 return rowObj;
             });
 
-            renderTable(sheetHeaders, sheetRowsData);
+            // 3. DYNAMIC FILTER LOGIC: Restrict strictly to 2026 Batch AND Email-Derived Department
+            sheetRowsData = allParsedRows.filter(row => {
+                // Find Batch Column
+                const batchHeader = sheetHeaders.find(h => h.toLowerCase().includes('batch')) || 
+                                    sheetHeaders.find(h => h.toLowerCase().includes('year'));
+                
+                let isBatch2026 = false;
+                if (batchHeader) {
+                    isBatch2026 = String(row[batchHeader]).includes("2026");
+                } else {
+                    isBatch2026 = Object.values(row).some(v => String(v).includes("2026"));
+                }
+
+                // Find Branch/Department Column
+                const branchHeader = sheetHeaders.find(h => h.toLowerCase().includes('branch')) || 
+                                     sheetHeaders.find(h => h.toLowerCase().includes('dept')) ||
+                                     sheetHeaders.find(h => h.toLowerCase().includes('sec')) ||
+                                     sheetHeaders.find(h => h.toLowerCase().includes('stream'));
+                
+                let isMatchingBranch = false;
+                if (branchHeader) {
+                    isMatchingBranch = String(row[branchHeader]).toUpperCase().includes(userBranch);
+                } else {
+                    isMatchingBranch = Object.values(row).some(v => String(v).toUpperCase().includes(userBranch));
+                }
+
+                return isBatch2026 && isMatchingBranch;
+            });
+
+            renderTable(sheetHeaders, sheetRowsData, userBranch);
 
         } catch (error) {
             console.error("Error loading CSV:", error);
@@ -244,7 +336,7 @@
         }
     }
 
-    // CSV Parser handling quotes, commas inside fields, and newlines
+    // Standard CSV parser
     function parseCSV(text) {
         const lines = [];
         let row = [];
@@ -282,18 +374,18 @@
         return lines;
     }
 
-    function renderTable(headers, rows) {
+    function renderTable(headers, rows, branch) {
         const tableHead = document.getElementById('table-head');
         const tableBody = document.getElementById('table-body');
         const countDisplay = document.getElementById('total-count');
 
         if (rows.length === 0) {
-            tableBody.innerHTML = '<tr><td class="loading-text" colspan="100%">No records found.</td></tr>';
+            tableBody.innerHTML = `<tr><td class="loading-text" colspan="100%">No records found matching 2026 Batch and ${branch} Department.</td></tr>`;
             countDisplay.innerText = "Total Records: 0";
             return;
         }
 
-        // Dynamically build <thead> columns based on current sheet headers
+        // Render Headers
         let headerHtml = '<tr>';
         headers.forEach(h => {
             headerHtml += `<th>${h}</th>`;
@@ -301,14 +393,14 @@
         headerHtml += '</tr>';
         tableHead.innerHTML = headerHtml;
 
-        // Dynamically build <tbody> rows matching the current headers
+        // Render Rows
         let bodyHtml = '';
         rows.forEach(row => {
             bodyHtml += '<tr>';
             headers.forEach(h => {
                 let cellVal = row[h] !== undefined && row[h] !== null && row[h] !== '' ? row[h] : '—';
 
-                // Automatically convert URLs into clickable proof links
+                // Automatically format URLs as clickable proof links
                 if (typeof cellVal === 'string' && (cellVal.startsWith('http://') || cellVal.startsWith('https://'))) {
                     cellVal = `<a href="${cellVal}" target="_blank" class="doc-link">📄 View Link</a>`;
                 }
@@ -319,18 +411,21 @@
         });
 
         tableBody.innerHTML = bodyHtml;
-        countDisplay.innerText = `Total Records: ${rows.length}`;
+        countDisplay.innerText = `Total ${branch} (2026) Records: ${rows.length}`;
     }
 
-    // Live search filtering across all dynamic columns
+    // Live search within filtered records
     function filterTable() {
         const query = document.getElementById('searchInput').value.toLowerCase();
+        const storedUser = JSON.parse(localStorage.getItem('currentUser')) || { email: "ecepco@mgit.ac.in" };
+        const userBranch = getBranchFromEmail(storedUser.email);
+
         const filteredRows = sheetRowsData.filter(row => {
             return sheetHeaders.some(header => 
                 String(row[header] || '').toLowerCase().includes(query)
             );
         });
-        renderTable(sheetHeaders, filteredRows);
+        renderTable(sheetHeaders, filteredRows, userBranch);
     }
 
     window.addEventListener('DOMContentLoaded', fetchCSVData);
