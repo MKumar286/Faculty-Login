@@ -16,10 +16,13 @@
             --bg-main: #F8FAFC;
             --navy-dark: #0F172A;
             --primary-blue: #2563EB;
+            --primary-hover: #1D4ED8;
             --text-dark: #1E293B;
             --text-muted: #64748B;
             --border-light: #E2E8F0;
             --white: #FFFFFF;
+            --excel-green: #059669;
+            --excel-hover: #047857;
         }
 
         body {
@@ -125,10 +128,26 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-light);
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
         .search-box input {
-            width: 320px;
+            width: 260px;
             padding: 9px 12px;
             border: 1px solid var(--border-light);
             border-radius: 6px;
@@ -136,8 +155,51 @@
             outline: none;
         }
 
-        .search-box input:focus {
+        .search-box input:focus, .filter-select:focus {
             border-color: var(--primary-blue);
+        }
+
+        .filter-select {
+            padding: 9px 12px;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+            color: var(--text-dark);
+            cursor: pointer;
+            max-width: 220px;
+        }
+
+        .btn {
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-reset {
+            background: #E2E8F0;
+            color: var(--text-dark);
+        }
+
+        .btn-reset:hover {
+            background: #CBD5E1;
+        }
+
+        .btn-excel {
+            background: var(--excel-green);
+            color: white;
+        }
+
+        .btn-excel:hover {
+            background: var(--excel-hover);
         }
 
         table {
@@ -146,14 +208,15 @@
             text-align: left;
         }
 
+        /* CHANGE 1: Styled & Colored Table Headers */
         th {
-            background-color: #F8FAFC;
-            color: var(--text-muted);
-            font-size: 12px;
+            background-color: var(--navy-dark);
+            color: var(--white);
+            font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             padding: 14px 20px;
-            border-bottom: 1px solid var(--border-light);
+            border-bottom: 2px solid var(--border-light);
             font-weight: 700;
             white-space: nowrap;
         }
@@ -171,9 +234,17 @@
             color: var(--primary-blue);
             text-decoration: none;
             font-weight: 600;
+            background: #EFF6FF;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #BFDBFE;
+            display: inline-block;
         }
 
-        .doc-link:hover { text-decoration: underline; }
+        .doc-link:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
 
         .loading-text {
             padding: 30px;
@@ -222,11 +293,27 @@
 
         <div class="table-section">
             <div class="table-toolbar">
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Search Roll No, Name, Company..." onkeyup="filterTable()">
+                <div class="toolbar-left">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search Roll No, Name..." onkeyup="filterTable()">
+                    </div>
+
+                    <!-- CHANGE 3: Company Filter Dropdown beside Search Bar -->
+                    <select id="companyFilter" class="filter-select" onchange="filterTable()">
+                        <option value="">All Companies</option>
+                    </select>
+
+                    <!-- CHANGE 4: Reset Filters Button -->
+                    <button class="btn btn-reset" onclick="resetFilters()">🔄 Reset Filters</button>
                 </div>
-                <div id="total-count" style="font-size:14px; font-weight:600; color:#64748B;">
-                    Filtering Google Sheet...
+
+                <div class="toolbar-right">
+                    <!-- CHANGE 4: Export to Excel Button -->
+                    <button class="btn btn-excel" onclick="exportToExcel()">📊 Export to Excel</button>
+                    
+                    <div id="total-count" style="font-size:14px; font-weight:600; color:#64748B;">
+                        Filtering Google Sheet...
+                    </div>
                 </div>
             </div>
 
@@ -251,12 +338,14 @@
 
     let sheetHeaders = [];
     let sheetRowsData = [];
+    let currentFilteredData = [];
+    let companyHeaderName = "";
 
     // Helper: Extract Department Code from Email ID (e.g. "ecepco@mgit.ac.in" -> "ECE")
     function getBranchFromEmail(email) {
         if (!email) return "ECE";
-        const emailPrefix = email.split('@')[0].toLowerCase(); // "ecepco"
-        const branchCode = emailPrefix.replace('pco', '').toUpperCase(); // "ECE"
+        const emailPrefix = email.split('@')[0].toLowerCase();
+        const branchCode = emailPrefix.replace('pco', '').toUpperCase();
         return branchCode || "ECE";
     }
 
@@ -267,7 +356,6 @@
             const userEmail = storedUser.email;
             const userBranch = getBranchFromEmail(userEmail);
 
-            // Update UI elements
             document.getElementById('user-email-display').innerText = userEmail;
             document.getElementById('active-filter-badge').innerText = `🎓 Active Filter: 2026 Batch | ${userBranch} Department`;
 
@@ -284,10 +372,8 @@
                 return;
             }
 
-            // Extract dynamic headers from Row 1
             sheetHeaders = parsedLines[0].map(h => h.trim()).filter(h => h !== '');
 
-            // Convert raw lines to JS Objects
             const allParsedRows = parsedLines.slice(1).map(rowValues => {
                 const rowObj = {};
                 sheetHeaders.forEach((header, index) => {
@@ -296,9 +382,8 @@
                 return rowObj;
             });
 
-            // 3. DYNAMIC FILTER LOGIC: Restrict strictly to 2026 Batch AND Email-Derived Department
+            // 3. Filter for 2026 Batch AND Email-Derived Department
             sheetRowsData = allParsedRows.filter(row => {
-                // Find Batch Column
                 const batchHeader = sheetHeaders.find(h => h.toLowerCase().includes('batch')) || 
                                     sheetHeaders.find(h => h.toLowerCase().includes('year'));
                 
@@ -309,7 +394,6 @@
                     isBatch2026 = Object.values(row).some(v => String(v).includes("2026"));
                 }
 
-                // Find Branch/Department Column
                 const branchHeader = sheetHeaders.find(h => h.toLowerCase().includes('branch')) || 
                                      sheetHeaders.find(h => h.toLowerCase().includes('dept')) ||
                                      sheetHeaders.find(h => h.toLowerCase().includes('sec')) ||
@@ -325,7 +409,11 @@
                 return isBatch2026 && isMatchingBranch;
             });
 
-            renderTable(sheetHeaders, sheetRowsData, userBranch);
+            // Populate Company Dropdown
+            populateCompanyDropdown(sheetRowsData);
+
+            // Initial Filter & Render
+            filterTable();
 
         } catch (error) {
             console.error("Error loading CSV:", error);
@@ -334,6 +422,35 @@
                     Failed to fetch data from Google Sheet.
                 </td></tr>`;
         }
+    }
+
+    // Populate Company Filter Dropdown dynamically from sheet data
+    function populateCompanyDropdown(rows) {
+        const select = document.getElementById('companyFilter');
+        select.innerHTML = '<option value="">All Companies</option>';
+
+        // Find the company column name
+        companyHeaderName = sheetHeaders.find(h => h.toLowerCase().includes('company')) ||
+                            sheetHeaders.find(h => h.toLowerCase().includes('organisation')) ||
+                            sheetHeaders.find(h => h.toLowerCase().includes('recruiter')) ||
+                            sheetHeaders.find(h => h.toLowerCase().includes('placed'));
+
+        if (!companyHeaderName) return;
+
+        const uniqueCompanies = new Set();
+        rows.forEach(row => {
+            const comp = row[companyHeaderName];
+            if (comp && comp !== '—' && comp !== '-') {
+                uniqueCompanies.add(comp);
+            }
+        });
+
+        Array.from(uniqueCompanies).sort().forEach(company => {
+            const opt = document.createElement('option');
+            opt.value = company;
+            opt.innerText = company;
+            select.appendChild(opt);
+        });
     }
 
     // Standard CSV parser
@@ -374,18 +491,21 @@
         return lines;
     }
 
-    function renderTable(headers, rows, branch) {
+    function renderTable(headers, rows) {
         const tableHead = document.getElementById('table-head');
         const tableBody = document.getElementById('table-body');
         const countDisplay = document.getElementById('total-count');
 
+        const storedUser = JSON.parse(localStorage.getItem('currentUser')) || { email: "ecepco@mgit.ac.in" };
+        const branch = getBranchFromEmail(storedUser.email);
+
         if (rows.length === 0) {
-            tableBody.innerHTML = `<tr><td class="loading-text" colspan="100%">No records found matching 2026 Batch and ${branch} Department.</td></tr>`;
+            tableBody.innerHTML = `<tr><td class="loading-text" colspan="100%">No records found matching filters for ${branch} Department.</td></tr>`;
             countDisplay.innerText = "Total Records: 0";
             return;
         }
 
-        // Render Headers
+        // Render Colored Headers
         let headerHtml = '<tr>';
         headers.forEach(h => {
             headerHtml += `<th>${h}</th>`;
@@ -400,9 +520,9 @@
             headers.forEach(h => {
                 let cellVal = row[h] !== undefined && row[h] !== null && row[h] !== '' ? row[h] : '—';
 
-                // Automatically format URLs as clickable proof links
+                // CHANGE 2: Inplace of "View Link", display "View"
                 if (typeof cellVal === 'string' && (cellVal.startsWith('http://') || cellVal.startsWith('https://'))) {
-                    cellVal = `<a href="${cellVal}" target="_blank" class="doc-link">📄 View Link</a>`;
+                    cellVal = `<a href="${cellVal}" target="_blank" class="doc-link">📄 View</a>`;
                 }
 
                 bodyHtml += `<td>${cellVal}</td>`;
@@ -411,21 +531,77 @@
         });
 
         tableBody.innerHTML = bodyHtml;
-        countDisplay.innerText = `Total ${branch} (2026) Records: ${rows.length}`;
+        countDisplay.innerText = `Showing Records: ${rows.length}`;
     }
 
-    // Live search within filtered records
+    // Filter Table based on Search Input & Selected Company
     function filterTable() {
-        const query = document.getElementById('searchInput').value.toLowerCase();
+        const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+        const selectedCompany = document.getElementById('companyFilter').value;
+
+        currentFilteredData = sheetRowsData.filter(row => {
+            // Search text check
+            const matchesSearch = sheetHeaders.some(header => 
+                String(row[header] || '').toLowerCase().includes(searchQuery)
+            );
+
+            // Company dropdown check
+            let matchesCompany = true;
+            if (selectedCompany && companyHeaderName) {
+                matchesCompany = String(row[companyHeaderName]) === selectedCompany;
+            }
+
+            return matchesSearch && matchesCompany;
+        });
+
+        renderTable(sheetHeaders, currentFilteredData);
+    }
+
+    // CHANGE 4: Reset Filters
+    function resetFilters() {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('companyFilter').value = '';
+        filterTable();
+    }
+
+    // CHANGE 4: Export Filtered Data to Excel
+    function exportToExcel() {
+        if (!currentFilteredData || currentFilteredData.length === 0) {
+            alert("No records available to export!");
+            return;
+        }
+
         const storedUser = JSON.parse(localStorage.getItem('currentUser')) || { email: "ecepco@mgit.ac.in" };
         const userBranch = getBranchFromEmail(storedUser.email);
 
-        const filteredRows = sheetRowsData.filter(row => {
-            return sheetHeaders.some(header => 
-                String(row[header] || '').toLowerCase().includes(query)
-            );
+        // Build HTML Table for Excel Download
+        let excelHtml = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">';
+        excelHtml += '<head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Student Progression</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body>';
+        excelHtml += '<table border="1"><thead><tr>';
+
+        sheetHeaders.forEach(h => {
+            excelHtml += `<th style="background-color:#0F172A; color:#FFFFFF; font-weight:bold;">${h}</th>`;
         });
-        renderTable(sheetHeaders, filteredRows, userBranch);
+        excelHtml += '</tr></thead><tbody>';
+
+        currentFilteredData.forEach(row => {
+            excelHtml += '<tr>';
+            sheetHeaders.forEach(h => {
+                excelHtml += `<td>${row[h] || ''}</td>`;
+            });
+            excelHtml += '</tr>';
+        });
+
+        excelHtml += '</tbody></table></body></html>';
+
+        const blob = new Blob([excelHtml], { type: 'application/vnd.ms-excel' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `MGIT_${userBranch}_2026_Progression_Data.xls`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
     }
 
     window.addEventListener('DOMContentLoaded', fetchCSVData);
