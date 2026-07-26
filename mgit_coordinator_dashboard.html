@@ -16,181 +16,169 @@
             --bg-main: #F8FAFC;
             --navy-dark: #0F172A;
             --primary-blue: #2563EB;
-            --primary-hover: #1D4ED8;
-            --text-dark: #1E293B;
+            --text-dark: #000000;
             --text-muted: #64748B;
-            --border-light: #E2E8F0;
+            --border-light: #CBD5E1;
             --white: #FFFFFF;
             --excel-green: #059669;
             --excel-hover: #047857;
+            --solid-gold: #FFD700;
+            --orange-hover: #FFEDD5; /* Soft Light Orange for Row Hover */
+            --orange-focus: #F97316; /* Light Orange Focus Ring */
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden; /* Prevents window double scrolling */
         }
 
         body {
             background-color: var(--bg-main);
             color: var(--text-dark);
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* Navbar */
+        /* Fixed Top Header Banner (Centered Headings) */
         .navbar {
-            background-color: var(--navy-dark);
-            color: var(--white);
-            padding: 14px 28px;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #3B0764 100%);
+            color: var(--solid-gold);
+            padding: 12px 20px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            border-bottom: 2px solid var(--solid-gold);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+            width: 100%;
         }
 
+        /* 3-Tier Headings in Tahoma & Solid Gold */
         .brand-section {
+            width: 100%;
+            text-align: center;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 14px;
+            justify-content: center;
+            gap: 4px;
         }
 
-        .logo-badge {
-            background-color: var(--primary-blue);
-            color: var(--white);
+        .main-heading {
+            font-family: 'Tahoma', 'Segoe UI', Arial, sans-serif;
+            font-size: 26px;
             font-weight: 800;
-            padding: 6px 12px;
-            border-radius: 8px;
+            color: var(--solid-gold);
+            letter-spacing: 0.5px;
+            line-height: 1.2;
         }
 
-        .brand-title h1 { font-size: 18px; }
-        .brand-title span { font-size: 12px; color: #94A3B8; }
-
-        .user-nav {
-            font-size: 13px;
-            color: #94A3B8;
-        }
-
-        .user-nav strong {
-            color: white;
-        }
-
-        .logout-link {
-            color: #EF4444;
-            text-decoration: none;
-            margin-left: 10px;
+        .sub-heading-1 {
+            font-family: 'Tahoma', 'Segoe UI', Arial, sans-serif;
+            font-size: 17px;
             font-weight: 600;
+            color: var(--solid-gold);
+            opacity: 0.95;
+            line-height: 1.2;
+        }
+
+        .sub-heading-2 {
+            font-family: 'Tahoma', 'Segoe UI', Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--solid-gold);
+            opacity: 0.90;
+            line-height: 1.2;
         }
 
         .container {
-            max-width: 1380px;
             width: 100%;
-            margin: 0 auto;
-            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Filter Toolbar */
+        .table-toolbar {
+            flex-shrink: 0;
+            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #3B0764 100%);
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--solid-gold);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .toolbar-left, .toolbar-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* Centered Stats Block */
+        .toolbar-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
             flex: 1;
         }
 
-        .page-header {
-            margin-bottom: 24px;
-            background: white;
-            padding: 20px 24px;
-            border-radius: 12px;
-            border: 1px solid var(--border-light);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .header-title h2 {
-            font-size: 22px;
-            color: var(--navy-dark);
-        }
-
-        .filter-badge {
-            display: inline-block;
-            background: #EFF6FF;
-            color: var(--primary-blue);
-            border: 1px solid #BFDBFE;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        /* Table Area */
-        .table-section {
-            background: var(--white);
-            border-radius: 12px;
-            border: 1px solid var(--border-light);
-            overflow-x: auto;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        .table-toolbar {
-            padding: 18px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-light);
-            flex-wrap: wrap;
-            gap: 14px;
-        }
-
-        .toolbar-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .toolbar-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
+        /* Input Focus Styling */
         .search-box input {
-            width: 260px;
-            padding: 9px 12px;
+            width: 190px;
+            padding: 6px 10px;
             border: 1px solid var(--border-light);
             border-radius: 6px;
-            font-size: 14px;
+            font-size: 12px;
             outline: none;
+            background: white;
+            transition: 0.2s;
         }
 
         .search-box input:focus, .filter-select:focus {
-            border-color: var(--primary-blue);
+            border-color: var(--orange-focus) !important;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.35) !important;
         }
 
         .filter-select {
-            padding: 9px 12px;
+            padding: 6px 10px;
             border: 1px solid var(--border-light);
             border-radius: 6px;
-            font-size: 14px;
+            font-size: 12px;
             outline: none;
             background: white;
-            color: var(--text-dark);
+            color: #000000;
             cursor: pointer;
-            max-width: 220px;
+            transition: 0.2s;
         }
 
         .btn {
-            padding: 9px 16px;
+            padding: 6px 12px;
             border-radius: 6px;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
             border: none;
             cursor: pointer;
             transition: 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
 
         .btn-reset {
-            background: #E2E8F0;
-            color: var(--text-dark);
+            background: #FFFFFF;
+            color: #0F172A;
+            border: 1px solid var(--border-light);
         }
 
         .btn-reset:hover {
-            background: #CBD5E1;
+            background: var(--orange-hover);
+            border-color: var(--orange-focus);
         }
 
         .btn-excel {
@@ -202,43 +190,70 @@
             background: var(--excel-hover);
         }
 
-        table {
+        /* Dedicated Scroll Container */
+        .table-section {
             width: 100%;
-            border-collapse: collapse;
-            text-align: left;
+            flex: 1;
+            overflow: auto;
+            background: var(--white);
+            scroll-behavior: smooth;
+            position: relative;
         }
 
-        /* CHANGE 1: Styled & Colored Table Headers */
+        table {
+            width: 100%;
+            table-layout: auto;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        /* Fixed Table Header */
         th {
+            position: sticky;
+            top: 0;
+            z-index: 20;
             background-color: var(--navy-dark);
             color: var(--white);
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 14px 20px;
-            border-bottom: 2px solid var(--border-light);
+            font-size: 12px;
             font-weight: 700;
+            text-transform: none;
+            padding: 10px 14px;
+            border-bottom: 2px solid var(--solid-gold);
             white-space: nowrap;
+            vertical-align: middle;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
 
         td {
-            padding: 14px 20px;
-            border-bottom: 1px solid var(--border-light);
-            font-size: 14px;
+            background-color: var(--white);
+            color: #000000;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-bottom: 1px solid #E2E8F0;
+            font-size: 12px;
             white-space: nowrap;
+            vertical-align: middle;
+            text-align: center;
+            transition: background-color 0.15s;
         }
 
-        tr:hover { background-color: #F8FAFC; }
+        /* Light Orange Background on Row Hover */
+        tr:hover td { 
+            background-color: var(--orange-hover) !important; 
+        }
 
         .doc-link {
             color: var(--primary-blue);
             text-decoration: none;
             font-weight: 600;
             background: #EFF6FF;
-            padding: 4px 10px;
-            border-radius: 6px;
+            padding: 3px 8px;
+            border-radius: 4px;
             border: 1px solid #BFDBFE;
             display: inline-block;
+            font-size: 11px;
+            transition: 0.2s;
         }
 
         .doc-link:hover {
@@ -251,72 +266,59 @@
             text-align: center;
             color: var(--text-muted);
             font-weight: 600;
+            background: white;
         }
 
         footer {
+            flex-shrink: 0;
             text-align: center;
-            padding: 20px;
+            padding: 8px;
             color: var(--text-muted);
-            font-size: 13px;
+            font-size: 11px;
             border-top: 1px solid var(--border-light);
             background: white;
-            margin-top: 30px;
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
+    <!-- Header Banner -->
+    <nav class="navbar" id="mainNavbar">
         <div class="brand-section">
-            <div class="logo-badge">MGIT</div>
-            <div class="brand-title">
-                <h1>Placement & Higher Education Portal</h1>
-                <span>Coordinator Dashboard</span>
-            </div>
-        </div>
-        <div class="user-nav">
-            Logged in as: <strong id="user-email-display">ecepco@mgit.ac.in</strong>
-            <a href="login.html" class="logout-link">Logout</a>
+            <h1 class="main-heading">Mahatma Gandhi Institute of Technology (A)</h1>
+            <h2 class="sub-heading-1">Department of Computer Science and Engineering</h2>
+            <h3 class="sub-heading-2">Placed Students data for the Academic Year 2025-2026</h3>
         </div>
     </nav>
 
     <div class="container">
-        <div class="page-header">
-            <div class="header-title">
-                <h2>Student Progression Details</h2>
-                <p style="color: #64748B; font-size: 14px;">Live data stream dynamically filtered by logged-in coordinator role.</p>
+        <!-- Filter Toolbar -->
+        <div class="table-toolbar" id="tableToolbar">
+            <div class="toolbar-left">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search Roll No, Name..." onkeyup="filterTable()">
+                </div>
+
+                <select id="companyFilter" class="filter-select" onchange="filterTable()">
+                    <option value="">All Companies</option>
+                </select>
             </div>
-            <div id="active-filter-badge" class="filter-badge">
-                🎓 Active Filter: 2026 Batch | Detecting Department...
+
+            <!-- Stats Centered in Middle of Row -->
+            <div class="toolbar-center">
+                <div id="total-count" style="font-size:13px; font-weight:700; color:var(--solid-gold);">
+                    Filtering Google Sheet...
+                </div>
+            </div>
+
+            <div class="toolbar-right">
+                <button class="btn btn-reset" onclick="resetFilters()">🔄 Reset</button>
+                <button class="btn btn-excel" onclick="exportToExcel()">📊 Export to Excel</button>
             </div>
         </div>
 
-        <div class="table-section">
-            <div class="table-toolbar">
-                <div class="toolbar-left">
-                    <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="Search Roll No, Name..." onkeyup="filterTable()">
-                    </div>
-
-                    <!-- CHANGE 3: Company Filter Dropdown beside Search Bar -->
-                    <select id="companyFilter" class="filter-select" onchange="filterTable()">
-                        <option value="">All Companies</option>
-                    </select>
-
-                    <!-- CHANGE 4: Reset Filters Button -->
-                    <button class="btn btn-reset" onclick="resetFilters()">🔄 Reset Filters</button>
-                </div>
-
-                <div class="toolbar-right">
-                    <!-- CHANGE 4: Export to Excel Button -->
-                    <button class="btn btn-excel" onclick="exportToExcel()">📊 Export to Excel</button>
-                    
-                    <div id="total-count" style="font-size:14px; font-weight:600; color:#64748B;">
-                        Filtering Google Sheet...
-                    </div>
-                </div>
-            </div>
-
+        <!-- Table Container -->
+        <div class="table-section" id="tableSection">
             <table id="data-table">
                 <thead id="table-head"></thead>
                 <tbody id="table-body">
@@ -341,7 +343,30 @@
     let currentFilteredData = [];
     let companyHeaderName = "";
 
-    // Helper: Extract Department Code from Email ID (e.g. "ecepco@mgit.ac.in" -> "ECE")
+    // Helper: Convert RAW_ALL_CAPS to Proper Title Case
+    function toProperCase(str) {
+        if (!str) return '';
+        return str
+            .replace(/_/g, ' ')
+            .toLowerCase()
+            .replace(/\b\w/g, char => char.toUpperCase());
+    }
+
+    // Helper: Detect & Hide Specified Columns
+    function isIgnoredHeader(headerName) {
+        if (!headerName) return true;
+        const norm = headerName.toLowerCase().trim();
+        const normAlpha = norm.replace(/[^a-z0-9]/g, '');
+
+        if (['sno', 'slno', 'serialno', 'srno', 'snum', 'slnum', 'sl'].includes(normAlpha)) return true;
+        if (norm.includes('nature')) return true;
+        if (norm.includes('on campus') || norm.includes('off campus') || norm.includes('on/off')) return true;
+        if (norm.includes('paid') || norm.includes('unpaid')) return true;
+
+        return false;
+    }
+
+    // Helper: Extract Department Code from Email ID
     function getBranchFromEmail(email) {
         if (!email) return "ECE";
         const emailPrefix = email.split('@')[0].toLowerCase();
@@ -351,15 +376,10 @@
 
     async function fetchCSVData() {
         try {
-            // 1. Get logged-in user from localStorage (Fallback to ecepco@mgit.ac.in)
             const storedUser = JSON.parse(localStorage.getItem('currentUser')) || { email: "ecepco@mgit.ac.in" };
             const userEmail = storedUser.email;
             const userBranch = getBranchFromEmail(userEmail);
 
-            document.getElementById('user-email-display').innerText = userEmail;
-            document.getElementById('active-filter-badge').innerText = `🎓 Active Filter: 2026 Batch | ${userBranch} Department`;
-
-            // 2. Fetch CSV Data from Google Sheet
             const response = await fetch(PUBLISHED_CSV_URL);
             if (!response.ok) throw new Error("Failed to fetch sheet data");
 
@@ -372,17 +392,20 @@
                 return;
             }
 
-            sheetHeaders = parsedLines[0].map(h => h.trim()).filter(h => h !== '');
+            sheetHeaders = parsedLines[0]
+                .map(h => h.trim())
+                .filter(h => h !== '' && !isIgnoredHeader(h));
 
             const allParsedRows = parsedLines.slice(1).map(rowValues => {
                 const rowObj = {};
-                sheetHeaders.forEach((header, index) => {
-                    rowObj[header] = rowValues[index] !== undefined ? rowValues[index].trim() : "";
+                sheetHeaders.forEach((header) => {
+                    const originalIndex = parsedLines[0].findIndex(rawH => rawH.trim() === header);
+                    rowObj[header] = rowValues[originalIndex] !== undefined ? rowValues[originalIndex].trim() : "";
                 });
                 return rowObj;
             });
 
-            // 3. Filter for 2026 Batch AND Email-Derived Department
+            // Filter for 2026 Batch AND Email-Derived Department
             sheetRowsData = allParsedRows.filter(row => {
                 const batchHeader = sheetHeaders.find(h => h.toLowerCase().includes('batch')) || 
                                     sheetHeaders.find(h => h.toLowerCase().includes('year'));
@@ -409,10 +432,7 @@
                 return isBatch2026 && isMatchingBranch;
             });
 
-            // Populate Company Dropdown
             populateCompanyDropdown(sheetRowsData);
-
-            // Initial Filter & Render
             filterTable();
 
         } catch (error) {
@@ -424,12 +444,10 @@
         }
     }
 
-    // Populate Company Filter Dropdown dynamically from sheet data
     function populateCompanyDropdown(rows) {
         const select = document.getElementById('companyFilter');
         select.innerHTML = '<option value="">All Companies</option>';
 
-        // Find the company column name
         companyHeaderName = sheetHeaders.find(h => h.toLowerCase().includes('company')) ||
                             sheetHeaders.find(h => h.toLowerCase().includes('organisation')) ||
                             sheetHeaders.find(h => h.toLowerCase().includes('recruiter')) ||
@@ -453,7 +471,6 @@
         });
     }
 
-    // Standard CSV parser
     function parseCSV(text) {
         const lines = [];
         let row = [];
@@ -505,22 +522,21 @@
             return;
         }
 
-        // Render Colored Headers
+        // Render Centered Headers
         let headerHtml = '<tr>';
         headers.forEach(h => {
-            headerHtml += `<th>${h}</th>`;
+            headerHtml += `<th>${toProperCase(h)}</th>`;
         });
         headerHtml += '</tr>';
         tableHead.innerHTML = headerHtml;
 
-        // Render Rows
+        // Render Centered Data Rows
         let bodyHtml = '';
         rows.forEach(row => {
             bodyHtml += '<tr>';
             headers.forEach(h => {
                 let cellVal = row[h] !== undefined && row[h] !== null && row[h] !== '' ? row[h] : '—';
 
-                // CHANGE 2: Inplace of "View Link", display "View"
                 if (typeof cellVal === 'string' && (cellVal.startsWith('http://') || cellVal.startsWith('https://'))) {
                     cellVal = `<a href="${cellVal}" target="_blank" class="doc-link">📄 View</a>`;
                 }
@@ -534,18 +550,15 @@
         countDisplay.innerText = `Showing Records: ${rows.length}`;
     }
 
-    // Filter Table based on Search Input & Selected Company
     function filterTable() {
         const searchQuery = document.getElementById('searchInput').value.toLowerCase();
         const selectedCompany = document.getElementById('companyFilter').value;
 
         currentFilteredData = sheetRowsData.filter(row => {
-            // Search text check
             const matchesSearch = sheetHeaders.some(header => 
                 String(row[header] || '').toLowerCase().includes(searchQuery)
             );
 
-            // Company dropdown check
             let matchesCompany = true;
             if (selectedCompany && companyHeaderName) {
                 matchesCompany = String(row[companyHeaderName]) === selectedCompany;
@@ -557,14 +570,12 @@
         renderTable(sheetHeaders, currentFilteredData);
     }
 
-    // CHANGE 4: Reset Filters
     function resetFilters() {
         document.getElementById('searchInput').value = '';
         document.getElementById('companyFilter').value = '';
         filterTable();
     }
 
-    // CHANGE 4: Export Filtered Data to Excel
     function exportToExcel() {
         if (!currentFilteredData || currentFilteredData.length === 0) {
             alert("No records available to export!");
@@ -574,20 +585,19 @@
         const storedUser = JSON.parse(localStorage.getItem('currentUser')) || { email: "ecepco@mgit.ac.in" };
         const userBranch = getBranchFromEmail(storedUser.email);
 
-        // Build HTML Table for Excel Download
         let excelHtml = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">';
         excelHtml += '<head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Student Progression</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body>';
         excelHtml += '<table border="1"><thead><tr>';
 
         sheetHeaders.forEach(h => {
-            excelHtml += `<th style="background-color:#0F172A; color:#FFFFFF; font-weight:bold;">${h}</th>`;
+            excelHtml += `<th style="background-color:#0F172A; color:#FFFFFF; font-weight:bold; text-align:center;">${toProperCase(h)}</th>`;
         });
         excelHtml += '</tr></thead><tbody>';
 
         currentFilteredData.forEach(row => {
             excelHtml += '<tr>';
             sheetHeaders.forEach(h => {
-                excelHtml += `<td>${row[h] || ''}</td>`;
+                excelHtml += `<td style="text-align:center;">${row[h] || ''}</td>`;
             });
             excelHtml += '</tr>';
         });
