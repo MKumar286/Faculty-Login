@@ -37,7 +37,7 @@
         .navbar {
             background-color: var(--navy-dark);
             color: var(--white);
-            padding: 14px 28px;
+            padding: 12px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -46,18 +46,19 @@
         .brand-section {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
         }
 
         .logo-badge {
             background-color: var(--primary-blue);
             color: var(--white);
             font-weight: 800;
-            padding: 6px 12px;
-            border-radius: 8px;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 15px;
         }
 
-        .brand-title h1 { font-size: 18px; }
+        .brand-title h1 { font-size: 17px; }
         .brand-title span { font-size: 12px; color: #94A3B8; }
 
         .user-nav {
@@ -77,18 +78,18 @@
         }
 
         .container {
-            max-width: 1380px;
+            max-width: 1400px;
             width: 100%;
             margin: 0 auto;
-            padding: 24px;
+            padding: 20px;
             flex: 1;
         }
 
         .page-header {
-            margin-bottom: 24px;
+            margin-bottom: 18px;
             background: white;
-            padding: 20px 24px;
-            border-radius: 12px;
+            padding: 16px 20px;
+            border-radius: 10px;
             border: 1px solid var(--border-light);
             display: flex;
             justify-content: space-between;
@@ -98,7 +99,7 @@
         }
 
         .header-title h2 {
-            font-size: 22px;
+            font-size: 20px;
             color: var(--navy-dark);
         }
 
@@ -107,51 +108,51 @@
             background: #EFF6FF;
             color: var(--primary-blue);
             border: 1px solid #BFDBFE;
-            padding: 6px 14px;
+            padding: 5px 12px;
             border-radius: 20px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
         }
 
         /* Table Area */
         .table-section {
             background: var(--white);
-            border-radius: 12px;
+            border-radius: 10px;
             border: 1px solid var(--border-light);
             overflow-x: auto;
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
         .table-toolbar {
-            padding: 18px 24px;
+            padding: 14px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-light);
             flex-wrap: wrap;
-            gap: 14px;
+            gap: 12px;
         }
 
         .toolbar-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
         .toolbar-right {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
         .search-box input {
-            width: 260px;
-            padding: 9px 12px;
+            width: 220px;
+            padding: 7px 10px;
             border: 1px solid var(--border-light);
             border-radius: 6px;
-            font-size: 14px;
+            font-size: 13px;
             outline: none;
         }
 
@@ -160,21 +161,21 @@
         }
 
         .filter-select {
-            padding: 9px 12px;
+            padding: 7px 10px;
             border: 1px solid var(--border-light);
             border-radius: 6px;
-            font-size: 14px;
+            font-size: 13px;
             outline: none;
             background: white;
             color: var(--text-dark);
             cursor: pointer;
-            max-width: 220px;
+            max-width: 200px;
         }
 
         .btn {
-            padding: 9px 16px;
+            padding: 7px 14px;
             border-radius: 6px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             border: none;
             cursor: pointer;
@@ -208,24 +209,29 @@
             text-align: left;
         }
 
-        /* CHANGE 1: Styled & Colored Table Headers */
+        /* CHANGE 1 & 2: Shrunk, Proper Text Headers with Text-Wrapping */
         th {
             background-color: var(--navy-dark);
             color: var(--white);
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 14px 20px;
-            border-bottom: 2px solid var(--border-light);
+            font-size: 11px;
             font-weight: 700;
-            white-space: nowrap;
+            text-transform: none; /* Keeps Proper Case */
+            letter-spacing: 0.3px;
+            padding: 8px 10px; /* Reduced Cell Padding */
+            border-bottom: 2px solid var(--border-light);
+            white-space: normal; /* Allows header text to wrap */
+            word-wrap: break-word;
+            max-width: 130px; /* Prevents columns from stretching excessively */
+            vertical-align: middle;
+            line-height: 1.25;
         }
 
         td {
-            padding: 14px 20px;
+            padding: 8px 10px; /* Reduced Cell Padding */
             border-bottom: 1px solid var(--border-light);
-            font-size: 14px;
+            font-size: 13px;
             white-space: nowrap;
+            vertical-align: middle;
         }
 
         tr:hover { background-color: #F8FAFC; }
@@ -235,10 +241,11 @@
             text-decoration: none;
             font-weight: 600;
             background: #EFF6FF;
-            padding: 4px 10px;
-            border-radius: 6px;
+            padding: 3px 8px;
+            border-radius: 4px;
             border: 1px solid #BFDBFE;
             display: inline-block;
+            font-size: 12px;
         }
 
         .doc-link:hover {
@@ -247,7 +254,7 @@
         }
 
         .loading-text {
-            padding: 30px;
+            padding: 24px;
             text-align: center;
             color: var(--text-muted);
             font-weight: 600;
@@ -255,12 +262,12 @@
 
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 16px;
             color: var(--text-muted);
-            font-size: 13px;
+            font-size: 12px;
             border-top: 1px solid var(--border-light);
             background: white;
-            margin-top: 30px;
+            margin-top: 24px;
         }
     </style>
 </head>
@@ -284,7 +291,7 @@
         <div class="page-header">
             <div class="header-title">
                 <h2>Student Progression Details</h2>
-                <p style="color: #64748B; font-size: 14px;">Live data stream dynamically filtered by logged-in coordinator role.</p>
+                <p style="color: #64748B; font-size: 13px;">Live data stream dynamically filtered by logged-in coordinator role.</p>
             </div>
             <div id="active-filter-badge" class="filter-badge">
                 🎓 Active Filter: 2026 Batch | Detecting Department...
@@ -298,20 +305,17 @@
                         <input type="text" id="searchInput" placeholder="Search Roll No, Name..." onkeyup="filterTable()">
                     </div>
 
-                    <!-- CHANGE 3: Company Filter Dropdown beside Search Bar -->
                     <select id="companyFilter" class="filter-select" onchange="filterTable()">
                         <option value="">All Companies</option>
                     </select>
 
-                    <!-- CHANGE 4: Reset Filters Button -->
-                    <button class="btn btn-reset" onclick="resetFilters()">🔄 Reset Filters</button>
+                    <button class="btn btn-reset" onclick="resetFilters()">🔄 Reset</button>
                 </div>
 
                 <div class="toolbar-right">
-                    <!-- CHANGE 4: Export to Excel Button -->
                     <button class="btn btn-excel" onclick="exportToExcel()">📊 Export to Excel</button>
                     
-                    <div id="total-count" style="font-size:14px; font-weight:600; color:#64748B;">
+                    <div id="total-count" style="font-size:13px; font-weight:600; color:#64748B;">
                         Filtering Google Sheet...
                     </div>
                 </div>
@@ -341,7 +345,16 @@
     let currentFilteredData = [];
     let companyHeaderName = "";
 
-    // Helper: Extract Department Code from Email ID (e.g. "ecepco@mgit.ac.in" -> "ECE")
+    // Helper: Convert RAW_ALL_CAPS or underscore_text to Proper Title Case
+    function toProperCase(str) {
+        if (!str) return '';
+        return str
+            .replace(/_/g, ' ')
+            .toLowerCase()
+            .replace(/\b\w/g, char => char.toUpperCase());
+    }
+
+    // Helper: Extract Department Code from Email ID (e.g., "ecepco@mgit.ac.in" -> "ECE")
     function getBranchFromEmail(email) {
         if (!email) return "ECE";
         const emailPrefix = email.split('@')[0].toLowerCase();
@@ -351,7 +364,6 @@
 
     async function fetchCSVData() {
         try {
-            // 1. Get logged-in user from localStorage (Fallback to ecepco@mgit.ac.in)
             const storedUser = JSON.parse(localStorage.getItem('currentUser')) || { email: "ecepco@mgit.ac.in" };
             const userEmail = storedUser.email;
             const userBranch = getBranchFromEmail(userEmail);
@@ -359,7 +371,6 @@
             document.getElementById('user-email-display').innerText = userEmail;
             document.getElementById('active-filter-badge').innerText = `🎓 Active Filter: 2026 Batch | ${userBranch} Department`;
 
-            // 2. Fetch CSV Data from Google Sheet
             const response = await fetch(PUBLISHED_CSV_URL);
             if (!response.ok) throw new Error("Failed to fetch sheet data");
 
@@ -382,7 +393,7 @@
                 return rowObj;
             });
 
-            // 3. Filter for 2026 Batch AND Email-Derived Department
+            // Filter for 2026 Batch AND Email-Derived Department
             sheetRowsData = allParsedRows.filter(row => {
                 const batchHeader = sheetHeaders.find(h => h.toLowerCase().includes('batch')) || 
                                     sheetHeaders.find(h => h.toLowerCase().includes('year'));
@@ -409,10 +420,7 @@
                 return isBatch2026 && isMatchingBranch;
             });
 
-            // Populate Company Dropdown
             populateCompanyDropdown(sheetRowsData);
-
-            // Initial Filter & Render
             filterTable();
 
         } catch (error) {
@@ -424,12 +432,10 @@
         }
     }
 
-    // Populate Company Filter Dropdown dynamically from sheet data
     function populateCompanyDropdown(rows) {
         const select = document.getElementById('companyFilter');
         select.innerHTML = '<option value="">All Companies</option>';
 
-        // Find the company column name
         companyHeaderName = sheetHeaders.find(h => h.toLowerCase().includes('company')) ||
                             sheetHeaders.find(h => h.toLowerCase().includes('organisation')) ||
                             sheetHeaders.find(h => h.toLowerCase().includes('recruiter')) ||
@@ -453,7 +459,6 @@
         });
     }
 
-    // Standard CSV parser
     function parseCSV(text) {
         const lines = [];
         let row = [];
@@ -505,22 +510,21 @@
             return;
         }
 
-        // Render Colored Headers
+        // Render Compact Proper Case Headers
         let headerHtml = '<tr>';
         headers.forEach(h => {
-            headerHtml += `<th>${h}</th>`;
+            headerHtml += `<th>${toProperCase(h)}</th>`;
         });
         headerHtml += '</tr>';
         tableHead.innerHTML = headerHtml;
 
-        // Render Rows
+        // Render Compact Rows
         let bodyHtml = '';
         rows.forEach(row => {
             bodyHtml += '<tr>';
             headers.forEach(h => {
                 let cellVal = row[h] !== undefined && row[h] !== null && row[h] !== '' ? row[h] : '—';
 
-                // CHANGE 2: Inplace of "View Link", display "View"
                 if (typeof cellVal === 'string' && (cellVal.startsWith('http://') || cellVal.startsWith('https://'))) {
                     cellVal = `<a href="${cellVal}" target="_blank" class="doc-link">📄 View</a>`;
                 }
@@ -534,18 +538,15 @@
         countDisplay.innerText = `Showing Records: ${rows.length}`;
     }
 
-    // Filter Table based on Search Input & Selected Company
     function filterTable() {
         const searchQuery = document.getElementById('searchInput').value.toLowerCase();
         const selectedCompany = document.getElementById('companyFilter').value;
 
         currentFilteredData = sheetRowsData.filter(row => {
-            // Search text check
             const matchesSearch = sheetHeaders.some(header => 
                 String(row[header] || '').toLowerCase().includes(searchQuery)
             );
 
-            // Company dropdown check
             let matchesCompany = true;
             if (selectedCompany && companyHeaderName) {
                 matchesCompany = String(row[companyHeaderName]) === selectedCompany;
@@ -557,14 +558,12 @@
         renderTable(sheetHeaders, currentFilteredData);
     }
 
-    // CHANGE 4: Reset Filters
     function resetFilters() {
         document.getElementById('searchInput').value = '';
         document.getElementById('companyFilter').value = '';
         filterTable();
     }
 
-    // CHANGE 4: Export Filtered Data to Excel
     function exportToExcel() {
         if (!currentFilteredData || currentFilteredData.length === 0) {
             alert("No records available to export!");
@@ -574,13 +573,12 @@
         const storedUser = JSON.parse(localStorage.getItem('currentUser')) || { email: "ecepco@mgit.ac.in" };
         const userBranch = getBranchFromEmail(storedUser.email);
 
-        // Build HTML Table for Excel Download
         let excelHtml = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">';
         excelHtml += '<head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Student Progression</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body>';
         excelHtml += '<table border="1"><thead><tr>';
 
         sheetHeaders.forEach(h => {
-            excelHtml += `<th style="background-color:#0F172A; color:#FFFFFF; font-weight:bold;">${h}</th>`;
+            excelHtml += `<th style="background-color:#0F172A; color:#FFFFFF; font-weight:bold;">${toProperCase(h)}</th>`;
         });
         excelHtml += '</tr></thead><tbody>';
 
