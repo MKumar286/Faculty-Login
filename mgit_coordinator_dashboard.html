@@ -171,7 +171,7 @@
     <div class="container">
         <div class="page-header">
             <h2>Student Progression Details</h2>
-            <p style="color: #64748B; font-size: 14px;">Live read-only stream directly from Google Sheets.</p>
+            <p style="color: #64748B; font-size: 14px;">Dynamic columns streaming live from Google Sheets.</p>
         </div>
 
         <div class="table-section">
@@ -188,7 +188,7 @@
                 <thead id="table-head"></thead>
                 <tbody id="table-body">
                     <tr>
-                        <td class="loading-text" colspan="100%">⏳ Fetching live data from Google Sheet...</td>
+                        <td class="loading-text" colspan="100%">⏳ Syncing dynamic columns from Google Sheet...</td>
                     </tr>
                 </tbody>
             </table>
@@ -200,51 +200,35 @@
     </footer>
 
 <script>
-    // 🔗 PASTE YOUR PUBLIC GOOGLE SHEET LINK HERE
-    const GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSlQ0WjFcZaI2eiKVtAqynVqs3H82MznXaV15n-qLjsDv6QL75g_7sQAhm0n6ZtiiDVKIB0MkuTNQ64/pub?gid=492329818&single=true&output=csv";
+    // Live Google Sheet CSV Link
+    const PUBLISHED_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSlQ0WjFcZaI2eiKVtAqynVqs3H82MznXaV15n-qLjsDv6QL75g_7sQAhm0n6ZtiiDVKIB0MkuTNQ64/pub?gid=492329818&single=true&output=csv";
 
     let sheetHeaders = [];
     let sheetRowsData = [];
 
-    async function loadGoogleSheetDirectly() {
+    async function fetchCSVData() {
         try {
-            // Extract Spreadsheet ID from link
-            const idMatch = GOOGLE_SHEET_URL.match(/\/d\/([a-zA-Z0-9-_]+)/);
-            if (!idMatch) {
-                throw new Error("Invalid Google Sheet link URL");
-            }
-            const spreadsheetId = idMatch[1];
+            const response = await fetch(PUBLISHED_CSV_URL);
+            if (!response.ok) throw new Error("Failed to fetch sheet data");
 
-            // Extract tab GID if present
-            let gidParam = "";
-            const gidMatch = GOOGLE_SHEET_URL.match(/gid=([0-9]+)/);
-            if (gidMatch) {
-                gidParam = `&gid=${gidMatch[1]}`;
+            const csvText = await response.text();
+            const parsedLines = parseCSV(csvText);
+
+            if (parsedLines.length < 1) {
+                document.getElementById('table-body').innerHTML = 
+                    '<tr><td class="loading-text" colspan="100%">The Google Sheet appears to be empty.</td></tr>';
+                return;
             }
 
-            // Public Google Visualization JSON endpoint
-            const gvizUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:json${gidParam}`;
+            // DYNAMIC COLUMN EXTRACTION:
+            // Extract row 1 as column names, trimming whitespace and filtering out empty column headers
+            sheetHeaders = parsedLines[0].map(h => h.trim()).filter(h => h !== '');
 
-            const response = await fetch(gvizUrl);
-            const rawText = await response.text();
-
-            // Extract JSON from google.visualization.Query.setResponse() wrapper
-            const jsonString = rawText.substring(rawText.indexOf('{'), rawText.lastIndexOf('}') + 1);
-            const parsedData = JSON.parse(jsonString);
-
-            // Extract Header Names
-            sheetHeaders = parsedData.table.cols
-                .map(col => col.label || col.id)
-                .filter(label => label.trim() !== "");
-
-            // Extract Row Objects
-            sheetRowsData = parsedData.table.rows.map(row => {
+            // Build dynamic row objects mapped strictly to the extracted column names
+            sheetRowsData = parsedLines.slice(1).map(rowValues => {
                 const rowObj = {};
-                row.c.forEach((cell, index) => {
-                    const header = sheetHeaders[index];
-                    if (header) {
-                        rowObj[header] = cell ? (cell.f !== undefined ? cell.f : cell.v) : "";
-                    }
+                sheetHeaders.forEach((header, index) => {
+                    rowObj[header] = rowValues[index] !== undefined ? rowValues[index].trim() : "";
                 });
                 return rowObj;
             });
@@ -252,12 +236,50 @@
             renderTable(sheetHeaders, sheetRowsData);
 
         } catch (error) {
-            console.error("Error loading sheet:", error);
+            console.error("Error loading CSV:", error);
             document.getElementById('table-body').innerHTML = 
                 `<tr><td class="loading-text" style="color:#DC2626;" colspan="100%">
-                    Failed to load data. Ensure your Google Sheet is shared as "Anyone with the link can view".
+                    Failed to fetch data from Google Sheet.
                 </td></tr>`;
         }
+    }
+
+    // CSV Parser handling quotes, commas inside fields, and newlines
+    function parseCSV(text) {
+        const lines = [];
+        let row = [];
+        let cell = '';
+        let insideQuotes = false;
+
+        for (let i = 0; i < text.length; i++) {
+            const char = text[i];
+            const nextChar = text[i + 1];
+
+            if (char === '"') {
+                if (insideQuotes && nextChar === '"') {
+                    cell += '"';
+                    i++;
+                } else {
+                    insideQuotes = !insideQuotes;
+                }
+            } else if (char === ',' && !insideQuotes) {
+                row.push(cell);
+                cell = '';
+            } else if ((char === '\r' || char === '\n') && !insideQuotes) {
+                if (char === '\r' && nextChar === '\n') i++;
+                row.push(cell);
+                if (row.some(c => c.trim() !== '')) lines.push(row);
+                row = [];
+                cell = '';
+            } else {
+                cell += char;
+            }
+        }
+        if (cell !== '' || row.length > 0) {
+            row.push(cell);
+            if (row.some(c => c.trim() !== '')) lines.push(row);
+        }
+        return lines;
     }
 
     function renderTable(headers, rows) {
@@ -271,7 +293,7 @@
             return;
         }
 
-        // Render Table Headers
+        // Dynamically build <thead> columns based on current sheet headers
         let headerHtml = '<tr>';
         headers.forEach(h => {
             headerHtml += `<th>${h}</th>`;
@@ -279,14 +301,14 @@
         headerHtml += '</tr>';
         tableHead.innerHTML = headerHtml;
 
-        // Render Table Rows
+        // Dynamically build <tbody> rows matching the current headers
         let bodyHtml = '';
         rows.forEach(row => {
             bodyHtml += '<tr>';
             headers.forEach(h => {
                 let cellVal = row[h] !== undefined && row[h] !== null && row[h] !== '' ? row[h] : '—';
 
-                // Automatically format URLs as clickable proof links
+                // Automatically convert URLs into clickable proof links
                 if (typeof cellVal === 'string' && (cellVal.startsWith('http://') || cellVal.startsWith('https://'))) {
                     cellVal = `<a href="${cellVal}" target="_blank" class="doc-link">📄 View Link</a>`;
                 }
@@ -300,18 +322,18 @@
         countDisplay.innerText = `Total Records: ${rows.length}`;
     }
 
-    // Filter across all dynamic columns
+    // Live search filtering across all dynamic columns
     function filterTable() {
         const query = document.getElementById('searchInput').value.toLowerCase();
         const filteredRows = sheetRowsData.filter(row => {
-            return Object.values(row).some(val => 
-                String(val).toLowerCase().includes(query)
+            return sheetHeaders.some(header => 
+                String(row[header] || '').toLowerCase().includes(query)
             );
         });
         renderTable(sheetHeaders, filteredRows);
     }
 
-    window.addEventListener('DOMContentLoaded', loadGoogleSheetDirectly);
+    window.addEventListener('DOMContentLoaded', fetchCSVData);
 </script>
 
 </body>
