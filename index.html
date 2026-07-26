@@ -16,15 +16,16 @@
             --bg-main: #F8FAFC;
             --navy-dark: #0F172A;
             --primary-blue: #2563EB;
-            --primary-hover: #1D4ED8;
-            --text-dark: #000000; /* Crisp Pure Black for Table Data */
+            --text-dark: #000000;
             --text-muted: #64748B;
             --border-light: #CBD5E1;
             --white: #FFFFFF;
             --excel-green: #059669;
             --excel-hover: #047857;
-            --solid-gold: #FFD700; /* Vibrant Solid Gold */
-            --filter-bg: #E2E8F0; /* CHANGE 2: Distinct Background for Filter Section */
+            --solid-gold: #FFD700;
+            --filter-bg: #E2E8F0;
+            --orange-hover: #FFEDD5; /* Soft Light Orange for Row Hover */
+            --orange-focus: #F97316; /* Light Orange Focus Ring */
         }
 
         body {
@@ -35,63 +36,64 @@
             flex-direction: column;
         }
 
-        /* CHANGE 1: Sticky Top 3-Tier Banner */
+        /* FIX 1 & 2: Header Banner - Centered Headings, Larger Text & No White Space */
         .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            height: 68px;
+            position: relative;
             background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #3B0764 100%);
             color: var(--solid-gold);
-            padding: 6px 20px;
+            padding: 16px 20px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            border-bottom: 3px solid var(--solid-gold);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-            border-bottom: 2px solid var(--solid-gold);
+            width: 100%;
         }
 
-        /* Center Aligned Brand Section */
         .brand-section {
+            width: 100%;
+            text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 2px;
-            text-align: center;
             align-items: center;
-            flex: 1;
+            justify-content: center;
         }
 
+        /* Scaled Up Headings */
         .main-heading {
-            font-size: 17px;
+            font-size: 24px;
             font-weight: 800;
             color: var(--solid-gold);
             letter-spacing: 0.5px;
-            line-height: 1.2;
-            text-align: center;
+            line-height: 1.25;
+            margin-bottom: 4px;
         }
 
         .sub-heading-1 {
-            font-size: 13px;
+            font-size: 16px;
             font-weight: 600;
             color: var(--solid-gold);
             opacity: 0.95;
-            line-height: 1.2;
-            text-align: center;
+            line-height: 1.25;
+            margin-bottom: 3px;
         }
 
         .sub-heading-2 {
-            font-size: 11px;
+            font-size: 14px;
             font-weight: 500;
             color: var(--solid-gold);
-            opacity: 0.88;
-            line-height: 1.2;
-            text-align: center;
+            opacity: 0.90;
+            line-height: 1.25;
         }
 
+        /* User nav positioned absolutely so it doesn't push headings off-center */
         .user-nav {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
             font-size: 12px;
             color: #CBD5E1;
-            text-align: right;
             white-space: nowrap;
         }
 
@@ -107,11 +109,62 @@
         }
 
         .container {
-            max-width: 100%;
             width: 100%;
-            margin: 0 auto;
-            padding: 8px;
+            margin: 0;
+            padding: 0;
             flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* FIX 3 & 4: Fixed Filter Toolbar (Does not scroll with table) */
+        .table-toolbar {
+            width: 100%;
+            background-color: var(--filter-bg);
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-light);
+            flex-wrap: wrap;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .toolbar-left, .toolbar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* FIX 5: Orange Cursor Focus Styles */
+        .search-box input {
+            width: 200px;
+            padding: 6px 10px;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            font-size: 12px;
+            outline: none;
+            background: white;
+            transition: 0.2s;
+        }
+
+        .search-box input:focus, .filter-select:focus {
+            border-color: var(--orange-focus) !important;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.25) !important;
+        }
+
+        .filter-select {
+            padding: 6px 10px;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            font-size: 12px;
+            outline: none;
+            background: white;
+            color: #000000;
+            cursor: pointer;
+            transition: 0.2s;
         }
 
         .filter-badge {
@@ -119,81 +172,15 @@
             background: #EFF6FF;
             color: var(--primary-blue);
             border: 1px solid #BFDBFE;
-            padding: 4px 8px;
+            padding: 5px 10px;
             border-radius: 16px;
             font-size: 11px;
             font-weight: 600;
         }
 
-        /* Table Area */
-        .table-section {
-            background: var(--white);
-            border-radius: 8px;
-            border: 1px solid var(--border-light);
-            width: 100%;
-            overflow-x: auto;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-        }
-
-        /* CHANGE 1 & 2: Sticky Filter Toolbar with Custom Background Color */
-        .table-toolbar {
-            position: sticky;
-            top: 68px; /* Sticks right below the 68px navbar */
-            z-index: 95;
-            height: 42px;
-            background-color: var(--filter-bg); /* Distinct Filter Section Background */
-            padding: 6px 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-light);
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .toolbar-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .toolbar-right {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .search-box input {
-            width: 180px;
-            padding: 5px 8px;
-            border: 1px solid var(--border-light);
-            border-radius: 5px;
-            font-size: 12px;
-            outline: none;
-            background: white;
-        }
-
-        .search-box input:focus, .filter-select:focus {
-            border-color: var(--primary-blue);
-        }
-
-        .filter-select {
-            padding: 5px 8px;
-            border: 1px solid var(--border-light);
-            border-radius: 5px;
-            font-size: 12px;
-            outline: none;
-            background: white;
-            color: #000000;
-            cursor: pointer;
-            max-width: 160px;
-        }
-
         .btn {
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 6px 12px;
+            border-radius: 6px;
             font-size: 12px;
             font-weight: 600;
             border: none;
@@ -211,7 +198,8 @@
         }
 
         .btn-reset:hover {
-            background: #F1F5F9;
+            background: var(--orange-hover);
+            border-color: var(--orange-focus);
         }
 
         .btn-excel {
@@ -223,45 +211,49 @@
             background: var(--excel-hover);
         }
 
-        /* Auto Table Layout */
+        /* FIX 4: Table Container for Horizontal Scrolling */
+        .table-section {
+            width: 100%;
+            overflow-x: auto; /* ONLY the table content scrolls horizontally */
+            background: var(--white);
+            flex: 1;
+        }
+
         table {
             width: 100%;
             table-layout: auto;
             border-collapse: collapse;
         }
 
-        /* CHANGE 1: Sticky Column Headers (Frozen below navbar + toolbar = 110px) */
         th {
-            position: sticky;
-            top: 110px; /* Freezes right below the sticky navbar + toolbar */
-            z-index: 90;
             background-color: var(--navy-dark);
             color: var(--white);
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
             text-transform: none;
-            padding: 8px;
+            padding: 10px 12px;
             border-bottom: 2px solid var(--border-light);
             white-space: nowrap;
             vertical-align: middle;
             text-align: center;
         }
 
-        /* CHANGE 3: Solid White Background & Dark Black Text for Table Data */
         td {
-            background-color: var(--white); /* Solid White Background */
-            color: #000000; /* Crisp Black Text */
+            background-color: var(--white);
+            color: #000000;
             font-weight: 500;
-            padding: 6px 8px;
+            padding: 8px 12px;
             border-bottom: 1px solid #E2E8F0;
-            font-size: 11px;
+            font-size: 12px;
             white-space: nowrap;
             vertical-align: middle;
             text-align: center;
+            transition: background-color 0.15s;
         }
 
+        /* FIX 5: Soft Light Orange Background on Table Row Hover */
         tr:hover td { 
-            background-color: #F8FAFC; 
+            background-color: var(--orange-hover) !important; 
         }
 
         .doc-link {
@@ -269,11 +261,12 @@
             text-decoration: none;
             font-weight: 600;
             background: #EFF6FF;
-            padding: 2px 6px;
+            padding: 3px 8px;
             border-radius: 4px;
             border: 1px solid #BFDBFE;
             display: inline-block;
-            font-size: 10px;
+            font-size: 11px;
+            transition: 0.2s;
         }
 
         .doc-link:hover {
@@ -282,7 +275,7 @@
         }
 
         .loading-text {
-            padding: 20px;
+            padding: 30px;
             text-align: center;
             color: var(--text-muted);
             font-weight: 600;
@@ -291,18 +284,17 @@
 
         footer {
             text-align: center;
-            padding: 8px;
+            padding: 10px;
             color: var(--text-muted);
             font-size: 11px;
             border-top: 1px solid var(--border-light);
             background: white;
-            margin-top: 8px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Center Aligned 3-Tier Headings (Frozen at top) -->
+    <!-- Header Banner -->
     <nav class="navbar">
         <div class="brand-section">
             <h1 class="main-heading">Mahatma Gandhi Institute of Technology (A)</h1>
@@ -316,35 +308,35 @@
     </nav>
 
     <div class="container">
-        <div class="table-section">
-            <!-- Filter Section (Frozen below navbar) -->
-            <div class="table-toolbar">
-                <div class="toolbar-left">
-                    <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="Search Roll No, Name..." onkeyup="filterTable()">
-                    </div>
-
-                    <select id="companyFilter" class="filter-select" onchange="filterTable()">
-                        <option value="">All Companies</option>
-                    </select>
-
-                    <button class="btn btn-reset" onclick="resetFilters()">🔄 Reset</button>
-                    
-                    <div id="active-filter-badge" class="filter-badge">
-                        🎓 2026 Batch | Detecting Dept...
-                    </div>
+        <!-- Stationary Filter Toolbar (Separated from horizontal table scroll) -->
+        <div class="table-toolbar">
+            <div class="toolbar-left">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search Roll No, Name..." onkeyup="filterTable()">
                 </div>
 
-                <div class="toolbar-right">
-                    <button class="btn btn-excel" onclick="exportToExcel()">📊 Export to Excel</button>
-                    
-                    <div id="total-count" style="font-size:12px; font-weight:600; color:#334155;">
-                        Filtering Google Sheet...
-                    </div>
+                <select id="companyFilter" class="filter-select" onchange="filterTable()">
+                    <option value="">All Companies</option>
+                </select>
+
+                <button class="btn btn-reset" onclick="resetFilters()">🔄 Reset</button>
+                
+                <div id="active-filter-badge" class="filter-badge">
+                    🎓 2026 Batch | Detecting Dept...
                 </div>
             </div>
 
-            <!-- Data Table (Headers frozen below toolbar) -->
+            <div class="toolbar-right">
+                <button class="btn btn-excel" onclick="exportToExcel()">📊 Export to Excel</button>
+                
+                <div id="total-count" style="font-size:12px; font-weight:600; color:#334155;">
+                    Filtering Google Sheet...
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Container (Only table data scrolls horizontally) -->
+        <div class="table-section">
             <table id="data-table">
                 <thead id="table-head"></thead>
                 <tbody id="table-body">
