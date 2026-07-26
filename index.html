@@ -23,6 +23,7 @@
             --white: #FFFFFF;
             --excel-green: #059669;
             --excel-hover: #047857;
+            --solid-gold: #FFD700; /* Vibrant Solid Gold */
         }
 
         body {
@@ -33,41 +34,57 @@
             flex-direction: column;
         }
 
-        /* Compact Navbar */
+        /* Mixed Dark Blue & Violet Header Banner */
         .navbar {
-            background-color: var(--navy-dark);
-            color: var(--white);
-            padding: 8px 16px;
+            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #3B0764 100%);
+            color: var(--solid-gold);
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            border-bottom: 2px solid var(--solid-gold);
         }
 
         .brand-section {
             display: flex;
-            align-items: center;
-            gap: 10px;
+            flex-direction: column;
+            gap: 2px;
         }
 
-        .logo-badge {
-            background-color: var(--primary-blue);
-            color: var(--white);
+        /* 3-Tier Headings in Solid Gold */
+        .main-heading {
+            font-size: 19px;
             font-weight: 800;
-            padding: 4px 8px;
-            border-radius: 5px;
-            font-size: 14px;
+            color: var(--solid-gold);
+            letter-spacing: 0.5px;
+            line-height: 1.2;
         }
 
-        .brand-title h1 { font-size: 15px; }
-        .brand-title span { font-size: 11px; color: #94A3B8; }
+        .sub-heading-1 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--solid-gold);
+            opacity: 0.95;
+            line-height: 1.2;
+        }
+
+        .sub-heading-2 {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--solid-gold);
+            opacity: 0.88;
+            line-height: 1.2;
+        }
 
         .user-nav {
             font-size: 12px;
-            color: #94A3B8;
+            color: #CBD5E1;
+            text-align: right;
         }
 
         .user-nav strong {
-            color: white;
+            color: var(--solid-gold);
         }
 
         .logout-link {
@@ -97,7 +114,7 @@
             font-weight: 600;
         }
 
-        /* Table Area - Smooth Horizontal Scroll */
+        /* Table Area */
         .table-section {
             background: var(--white);
             border-radius: 8px;
@@ -187,7 +204,7 @@
             background: var(--excel-hover);
         }
 
-        /* Auto Table Layout - Columns tightly fit content length */
+        /* Auto Table Layout */
         table {
             width: 100%;
             table-layout: auto;
@@ -202,7 +219,7 @@
             text-transform: none;
             padding: 6px 8px;
             border-bottom: 2px solid var(--border-light);
-            white-space: nowrap; /* No text wrapping */
+            white-space: nowrap;
             vertical-align: middle;
             text-align: center;
         }
@@ -211,7 +228,7 @@
             padding: 5px 8px;
             border-bottom: 1px solid var(--border-light);
             font-size: 11px;
-            white-space: nowrap; /* No text wrapping */
+            white-space: nowrap;
             vertical-align: middle;
             text-align: center;
         }
@@ -255,13 +272,12 @@
 </head>
 <body>
 
+    <!-- Updated Header with Mixed Dark Blue & Violet Background and Solid Gold Text -->
     <nav class="navbar">
         <div class="brand-section">
-            <div class="logo-badge">MGIT</div>
-            <div class="brand-title">
-                <h1>Placement & Higher Education Portal</h1>
-                <span>Coordinator Dashboard</span>
-            </div>
+            <h1 class="main-heading">Mahatma Gandhi Institute of Technology (A)</h1>
+            <h2 class="sub-heading-1">Department of Computer Science and Engineering</h2>
+            <h3 class="sub-heading-2">Placed Students data for the Academic Year 2025-2026</h3>
         </div>
         <div class="user-nav">
             Logged in as: <strong id="user-email-display">ecepco@mgit.ac.in</strong>
@@ -344,7 +360,7 @@
         return false;
     }
 
-    // Helper: Extract Department Code from Email ID (e.g. "ecepco@mgit.ac.in" -> "ECE")
+    // Helper: Extract Department Code from Email ID
     function getBranchFromEmail(email) {
         if (!email) return "ECE";
         const emailPrefix = email.split('@')[0].toLowerCase();
