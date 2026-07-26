@@ -1,188 +1,610 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Department Placement Coordinator Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Department Progression Dashboard - MGIT Placement Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", Arial, sans-serif;
-}
+        :root {
+            --bg-main: #F8FAFC;
+            --navy-dark: #0F172A;
+            --primary-blue: #2563EB;
+            --primary-hover: #1D4ED8;
+            --text-dark: #1E293B;
+            --text-muted: #64748B;
+            --border-light: #E2E8F0;
+            --white: #FFFFFF;
+            --excel-green: #059669;
+            --excel-hover: #047857;
+        }
 
-body {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #0F172A; /* Professional Dark Navy */
-    padding: 20px;
-}
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-.login-box {
-    width: 100%;
-    max-width: 380px;
-    background: #ffffff;
-    padding: 35px;
-    border-radius: 15px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.35);
-}
+        /* Navbar */
+        .navbar {
+            background-color: var(--navy-dark);
+            color: var(--white);
+            padding: 14px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-h2 {
-    text-align: center;
-    color: #0F172A;
-    margin-bottom: 8px;
-    font-size: 26px;
-}
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
 
-.subtitle {
-    text-align: center;
-    color: #64748B;
-    font-size: 14px;
-    margin-bottom: 24px;
-}
+        .logo-badge {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            font-weight: 800;
+            padding: 6px 12px;
+            border-radius: 8px;
+        }
 
-.input-group {
-    margin-bottom: 18px;
-}
+        .brand-title h1 { font-size: 18px; }
+        .brand-title span { font-size: 12px; color: #94A3B8; }
 
-label {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    color: #334155;
-    margin-bottom: 7px;
-}
+        .user-nav {
+            font-size: 13px;
+            color: #94A3B8;
+        }
 
-input {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid #CBD5E1;
-    border-radius: 8px;
-    font-size: 15px;
-    outline: none;
-    transition: 0.3s;
-}
+        .user-nav strong {
+            color: white;
+        }
 
-input:focus {
-    border-color: #2563EB;
-    box-shadow: 0 0 0 3px rgba(37,99,235,.15);
-}
+        .logout-link {
+            color: #EF4444;
+            text-decoration: none;
+            margin-left: 10px;
+            font-weight: 600;
+        }
 
-/* Red Error Box for Invalid Login */
-.error-message {
-    display: none;
-    background-color: #FEE2E2;
-    color: #DC2626;
-    padding: 10px 12px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 18px;
-    text-align: center;
-    border: 1px solid #FCA5A5;
-}
+        .container {
+            max-width: 1380px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 24px;
+            flex: 1;
+        }
 
-button {
-    width: 100%;
-    padding: 13px;
-    border: none;
-    border-radius: 8px;
-    background: #2563EB;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: .3s;
-}
+        .page-header {
+            margin-bottom: 24px;
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
 
-button:hover {
-    background: #1D4ED8;
-}
+        .header-title h2 {
+            font-size: 22px;
+            color: var(--navy-dark);
+        }
 
-.footer {
-    margin-top: 22px;
-    text-align: center;
-    color: #64748B;
-    font-size: 13px;
-}
-</style>
+        .filter-badge {
+            display: inline-block;
+            background: #EFF6FF;
+            color: var(--primary-blue);
+            border: 1px solid #BFDBFE;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
 
+        /* Table Area */
+        .table-section {
+            background: var(--white);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            overflow-x: auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .table-toolbar {
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-light);
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .search-box input {
+            width: 260px;
+            padding: 9px 12px;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-box input:focus, .filter-select:focus {
+            border-color: var(--primary-blue);
+        }
+
+        .filter-select {
+            padding: 9px 12px;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+            color: var(--text-dark);
+            cursor: pointer;
+            max-width: 220px;
+        }
+
+        .btn {
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-reset {
+            background: #E2E8F0;
+            color: var(--text-dark);
+        }
+
+        .btn-reset:hover {
+            background: #CBD5E1;
+        }
+
+        .btn-excel {
+            background: var(--excel-green);
+            color: white;
+        }
+
+        .btn-excel:hover {
+            background: var(--excel-hover);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        /* CHANGE 1: Styled & Colored Table Headers */
+        th {
+            background-color: var(--navy-dark);
+            color: var(--white);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 14px 20px;
+            border-bottom: 2px solid var(--border-light);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        tr:hover { background-color: #F8FAFC; }
+
+        .doc-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            background: #EFF6FF;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #BFDBFE;
+            display: inline-block;
+        }
+
+        .doc-link:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .loading-text {
+            padding: 30px;
+            text-align: center;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 13px;
+            border-top: 1px solid var(--border-light);
+            background: white;
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
 
-<div class="login-box">
+    <nav class="navbar">
+        <div class="brand-section">
+            <div class="logo-badge">MGIT</div>
+            <div class="brand-title">
+                <h1>Placement & Higher Education Portal</h1>
+                <span>Coordinator Dashboard</span>
+            </div>
+        </div>
+        <div class="user-nav">
+            Logged in as: <strong id="user-email-display">ecepco@mgit.ac.in</strong>
+            <a href="login.html" class="logout-link">Logout</a>
+        </div>
+    </nav>
 
-    <h2>Coordinator Login</h2>
-
-    <p class="subtitle">
-        Department Placement Coordinator Portal
-    </p>
-
-    <!-- Error Alert Box -->
-    <div id="error-msg" class="error-message">
-        Invalid Email ID or Password!
-    </div>
-
-    <form id="loginForm">
-
-        <div class="input-group">
-            <label for="email">Email ID</label>
-            <input type="email" id="email" placeholder="Enter your official email" required>
+    <div class="container">
+        <div class="page-header">
+            <div class="header-title">
+                <h2>Student Progression Details</h2>
+                <p style="color: #64748B; font-size: 14px;">Live data stream dynamically filtered by logged-in coordinator role.</p>
+            </div>
+            <div id="active-filter-badge" class="filter-badge">
+                🎓 Active Filter: 2026 Batch | Detecting Department...
+            </div>
         </div>
 
-        <div class="input-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password" required>
+        <div class="table-section">
+            <div class="table-toolbar">
+                <div class="toolbar-left">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search Roll No, Name..." onkeyup="filterTable()">
+                    </div>
+
+                    <!-- CHANGE 3: Company Filter Dropdown beside Search Bar -->
+                    <select id="companyFilter" class="filter-select" onchange="filterTable()">
+                        <option value="">All Companies</option>
+                    </select>
+
+                    <!-- CHANGE 4: Reset Filters Button -->
+                    <button class="btn btn-reset" onclick="resetFilters()">🔄 Reset Filters</button>
+                </div>
+
+                <div class="toolbar-right">
+                    <!-- CHANGE 4: Export to Excel Button -->
+                    <button class="btn btn-excel" onclick="exportToExcel()">📊 Export to Excel</button>
+                    
+                    <div id="total-count" style="font-size:14px; font-weight:600; color:#64748B;">
+                        Filtering Google Sheet...
+                    </div>
+                </div>
+            </div>
+
+            <table id="data-table">
+                <thead id="table-head"></thead>
+                <tbody id="table-body">
+                    <tr>
+                        <td class="loading-text" colspan="100%">⏳ Fetching student data for your department...</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-
-        <button type="submit">Login</button>
-
-    </form>
-
-    <div class="footer">
-        MGIT Placement Portal
     </div>
 
-</div>
+    <footer>
+        Mahatma Gandhi Institute of Technology (MGIT) • Placement Portal
+    </footer>
 
 <script>
-    // Allowed credentials list (easily add new users here later)
-    const validCredentials = [
-        { email: "ecepco@mgit.ac.in", password: "12345", department: "ECE Department" },
-         { email: "csepco@mgit.ac.in", password: "12345", department: "CSE Department" },
-        
-        // Example: Add more accounts here in the future
-        // { email: "csepco@mgit.ac.in", password: "yourpassword", department: "CSE Department" },
-        // { email: "mechepco@mgit.ac.in", password: "yourpassword", department: "MECH Department" }
-    ];
+    // Live Google Sheet CSV Link
+    const PUBLISHED_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSlQ0WjFcZaI2eiKVtAqynVqs3H82MznXaV15n-qLjsDv6QL75g_7sQAhm0n6ZtiiDVKIB0MkuTNQ64/pub?gid=492329818&single=true&output=csv";
 
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Stop form from refreshing the page
+    let sheetHeaders = [];
+    let sheetRowsData = [];
+    let currentFilteredData = [];
+    let companyHeaderName = "";
 
-        const emailInput = document.getElementById('email').value.trim();
-        const passwordInput = document.getElementById('password').value;
-        const errorMsg = document.getElementById('error-msg');
+    // Helper: Extract Department Code from Email ID (e.g. "ecepco@mgit.ac.in" -> "ECE")
+    function getBranchFromEmail(email) {
+        if (!email) return "ECE";
+        const emailPrefix = email.split('@')[0].toLowerCase();
+        const branchCode = emailPrefix.replace('pco', '').toUpperCase();
+        return branchCode || "ECE";
+    }
 
-        // Check if user exists in the validCredentials array
-        const userMatch = validCredentials.find(user => 
-            user.email.toLowerCase() === emailInput.toLowerCase() && user.password === passwordInput
-        );
+    async function fetchCSVData() {
+        try {
+            // 1. Get logged-in user from localStorage (Fallback to ecepco@mgit.ac.in)
+            const storedUser = JSON.parse(localStorage.getItem('currentUser')) || { email: "ecepco@mgit.ac.in" };
+            const userEmail = storedUser.email;
+            const userBranch = getBranchFromEmail(userEmail);
 
-        if (userMatch) {
-            // Save user info to local storage so the next page knows who logged in
-            localStorage.setItem('currentUser', JSON.stringify(userMatch));
+            document.getElementById('user-email-display').innerText = userEmail;
+            document.getElementById('active-filter-badge').innerText = `🎓 Active Filter: 2026 Batch | ${userBranch} Department`;
 
-            // Redirect to dashboard
-            window.location.href = "mgit_coordinator_dashboard.html";
-        } else {
-            // Display error alert
-            errorMsg.style.display = "block";
+            // 2. Fetch CSV Data from Google Sheet
+            const response = await fetch(PUBLISHED_CSV_URL);
+            if (!response.ok) throw new Error("Failed to fetch sheet data");
+
+            const csvText = await response.text();
+            const parsedLines = parseCSV(csvText);
+
+            if (parsedLines.length < 1) {
+                document.getElementById('table-body').innerHTML = 
+                    '<tr><td class="loading-text" colspan="100%">The Google Sheet appears to be empty.</td></tr>';
+                return;
+            }
+
+            sheetHeaders = parsedLines[0].map(h => h.trim()).filter(h => h !== '');
+
+            const allParsedRows = parsedLines.slice(1).map(rowValues => {
+                const rowObj = {};
+                sheetHeaders.forEach((header, index) => {
+                    rowObj[header] = rowValues[index] !== undefined ? rowValues[index].trim() : "";
+                });
+                return rowObj;
+            });
+
+            // 3. Filter for 2026 Batch AND Email-Derived Department
+            sheetRowsData = allParsedRows.filter(row => {
+                const batchHeader = sheetHeaders.find(h => h.toLowerCase().includes('batch')) || 
+                                    sheetHeaders.find(h => h.toLowerCase().includes('year'));
+                
+                let isBatch2026 = false;
+                if (batchHeader) {
+                    isBatch2026 = String(row[batchHeader]).includes("2026");
+                } else {
+                    isBatch2026 = Object.values(row).some(v => String(v).includes("2026"));
+                }
+
+                const branchHeader = sheetHeaders.find(h => h.toLowerCase().includes('branch')) || 
+                                     sheetHeaders.find(h => h.toLowerCase().includes('dept')) ||
+                                     sheetHeaders.find(h => h.toLowerCase().includes('sec')) ||
+                                     sheetHeaders.find(h => h.toLowerCase().includes('stream'));
+                
+                let isMatchingBranch = false;
+                if (branchHeader) {
+                    isMatchingBranch = String(row[branchHeader]).toUpperCase().includes(userBranch);
+                } else {
+                    isMatchingBranch = Object.values(row).some(v => String(v).toUpperCase().includes(userBranch));
+                }
+
+                return isBatch2026 && isMatchingBranch;
+            });
+
+            // Populate Company Dropdown
+            populateCompanyDropdown(sheetRowsData);
+
+            // Initial Filter & Render
+            filterTable();
+
+        } catch (error) {
+            console.error("Error loading CSV:", error);
+            document.getElementById('table-body').innerHTML = 
+                `<tr><td class="loading-text" style="color:#DC2626;" colspan="100%">
+                    Failed to fetch data from Google Sheet.
+                </td></tr>`;
         }
-    });
+    }
+
+    // Populate Company Filter Dropdown dynamically from sheet data
+    function populateCompanyDropdown(rows) {
+        const select = document.getElementById('companyFilter');
+        select.innerHTML = '<option value="">All Companies</option>';
+
+        // Find the company column name
+        companyHeaderName = sheetHeaders.find(h => h.toLowerCase().includes('company')) ||
+                            sheetHeaders.find(h => h.toLowerCase().includes('organisation')) ||
+                            sheetHeaders.find(h => h.toLowerCase().includes('recruiter')) ||
+                            sheetHeaders.find(h => h.toLowerCase().includes('placed'));
+
+        if (!companyHeaderName) return;
+
+        const uniqueCompanies = new Set();
+        rows.forEach(row => {
+            const comp = row[companyHeaderName];
+            if (comp && comp !== '—' && comp !== '-') {
+                uniqueCompanies.add(comp);
+            }
+        });
+
+        Array.from(uniqueCompanies).sort().forEach(company => {
+            const opt = document.createElement('option');
+            opt.value = company;
+            opt.innerText = company;
+            select.appendChild(opt);
+        });
+    }
+
+    // Standard CSV parser
+    function parseCSV(text) {
+        const lines = [];
+        let row = [];
+        let cell = '';
+        let insideQuotes = false;
+
+        for (let i = 0; i < text.length; i++) {
+            const char = text[i];
+            const nextChar = text[i + 1];
+
+            if (char === '"') {
+                if (insideQuotes && nextChar === '"') {
+                    cell += '"';
+                    i++;
+                } else {
+                    insideQuotes = !insideQuotes;
+                }
+            } else if (char === ',' && !insideQuotes) {
+                row.push(cell);
+                cell = '';
+            } else if ((char === '\r' || char === '\n') && !insideQuotes) {
+                if (char === '\r' && nextChar === '\n') i++;
+                row.push(cell);
+                if (row.some(c => c.trim() !== '')) lines.push(row);
+                row = [];
+                cell = '';
+            } else {
+                cell += char;
+            }
+        }
+        if (cell !== '' || row.length > 0) {
+            row.push(cell);
+            if (row.some(c => c.trim() !== '')) lines.push(row);
+        }
+        return lines;
+    }
+
+    function renderTable(headers, rows) {
+        const tableHead = document.getElementById('table-head');
+        const tableBody = document.getElementById('table-body');
+        const countDisplay = document.getElementById('total-count');
+
+        const storedUser = JSON.parse(localStorage.getItem('currentUser')) || { email: "ecepco@mgit.ac.in" };
+        const branch = getBranchFromEmail(storedUser.email);
+
+        if (rows.length === 0) {
+            tableBody.innerHTML = `<tr><td class="loading-text" colspan="100%">No records found matching filters for ${branch} Department.</td></tr>`;
+            countDisplay.innerText = "Total Records: 0";
+            return;
+        }
+
+        // Render Colored Headers
+        let headerHtml = '<tr>';
+        headers.forEach(h => {
+            headerHtml += `<th>${h}</th>`;
+        });
+        headerHtml += '</tr>';
+        tableHead.innerHTML = headerHtml;
+
+        // Render Rows
+        let bodyHtml = '';
+        rows.forEach(row => {
+            bodyHtml += '<tr>';
+            headers.forEach(h => {
+                let cellVal = row[h] !== undefined && row[h] !== null && row[h] !== '' ? row[h] : '—';
+
+                // CHANGE 2: Inplace of "View Link", display "View"
+                if (typeof cellVal === 'string' && (cellVal.startsWith('http://') || cellVal.startsWith('https://'))) {
+                    cellVal = `<a href="${cellVal}" target="_blank" class="doc-link">📄 View</a>`;
+                }
+
+                bodyHtml += `<td>${cellVal}</td>`;
+            });
+            bodyHtml += '</tr>';
+        });
+
+        tableBody.innerHTML = bodyHtml;
+        countDisplay.innerText = `Showing Records: ${rows.length}`;
+    }
+
+    // Filter Table based on Search Input & Selected Company
+    function filterTable() {
+        const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+        const selectedCompany = document.getElementById('companyFilter').value;
+
+        currentFilteredData = sheetRowsData.filter(row => {
+            // Search text check
+            const matchesSearch = sheetHeaders.some(header => 
+                String(row[header] || '').toLowerCase().includes(searchQuery)
+            );
+
+            // Company dropdown check
+            let matchesCompany = true;
+            if (selectedCompany && companyHeaderName) {
+                matchesCompany = String(row[companyHeaderName]) === selectedCompany;
+            }
+
+            return matchesSearch && matchesCompany;
+        });
+
+        renderTable(sheetHeaders, currentFilteredData);
+    }
+
+    // CHANGE 4: Reset Filters
+    function resetFilters() {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('companyFilter').value = '';
+        filterTable();
+    }
+
+    // CHANGE 4: Export Filtered Data to Excel
+    function exportToExcel() {
+        if (!currentFilteredData || currentFilteredData.length === 0) {
+            alert("No records available to export!");
+            return;
+        }
+
+        const storedUser = JSON.parse(localStorage.getItem('currentUser')) || { email: "ecepco@mgit.ac.in" };
+        const userBranch = getBranchFromEmail(storedUser.email);
+
+        // Build HTML Table for Excel Download
+        let excelHtml = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">';
+        excelHtml += '<head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Student Progression</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body>';
+        excelHtml += '<table border="1"><thead><tr>';
+
+        sheetHeaders.forEach(h => {
+            excelHtml += `<th style="background-color:#0F172A; color:#FFFFFF; font-weight:bold;">${h}</th>`;
+        });
+        excelHtml += '</tr></thead><tbody>';
+
+        currentFilteredData.forEach(row => {
+            excelHtml += '<tr>';
+            sheetHeaders.forEach(h => {
+                excelHtml += `<td>${row[h] || ''}</td>`;
+            });
+            excelHtml += '</tr>';
+        });
+
+        excelHtml += '</tbody></table></body></html>';
+
+        const blob = new Blob([excelHtml], { type: 'application/vnd.ms-excel' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `MGIT_${userBranch}_2026_Progression_Data.xls`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+
+    window.addEventListener('DOMContentLoaded', fetchCSVData);
 </script>
 
 </body>
