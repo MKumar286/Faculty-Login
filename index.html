@@ -29,7 +29,7 @@
 
         html, body {
             height: 100%;
-            overflow: hidden; /* Lock viewport to prevent window double scrolling */
+            overflow: hidden; /* Prevents window double scrolling */
         }
 
         body {
@@ -39,7 +39,7 @@
             flex-direction: column;
         }
 
-        /* Fixed Top Header Banner */
+        /* Fixed Top Header Banner (Centered Headings) */
         .navbar {
             flex-shrink: 0;
             background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #3B0764 100%);
@@ -51,7 +51,6 @@
             border-bottom: 2px solid var(--solid-gold);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
             width: 100%;
-            position: relative;
         }
 
         /* 3-Tier Headings in Tahoma & Solid Gold */
@@ -92,33 +91,12 @@
             line-height: 1.2;
         }
 
-        .user-nav {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 12px;
-            color: #CBD5E1;
-            white-space: nowrap;
-        }
-
-        .user-nav strong {
-            color: var(--solid-gold);
-        }
-
-        .logout-link {
-            color: #EF4444;
-            text-decoration: none;
-            margin-left: 8px;
-            font-weight: 600;
-        }
-
         .container {
             width: 100%;
             flex: 1;
             display: flex;
             flex-direction: column;
-            overflow: hidden; /* Contains the internal scroll */
+            overflow: hidden;
         }
 
         /* Filter Toolbar */
@@ -139,6 +117,15 @@
             align-items: center;
             gap: 8px;
             flex-wrap: wrap;
+        }
+
+        /* Centered Stats Block */
+        .toolbar-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex: 1;
         }
 
         /* Input Focus Styling */
@@ -168,17 +155,6 @@
             color: #000000;
             cursor: pointer;
             transition: 0.2s;
-        }
-
-        .filter-badge {
-            display: inline-block;
-            background: rgba(255, 215, 0, 0.15);
-            color: var(--solid-gold);
-            border: 1px solid var(--solid-gold);
-            padding: 4px 10px;
-            border-radius: 16px;
-            font-size: 11px;
-            font-weight: 600;
         }
 
         .btn {
@@ -214,28 +190,11 @@
             background: var(--excel-hover);
         }
 
-        .btn-scroll {
-            background: rgba(255, 255, 255, 0.15);
-            color: var(--solid-gold);
-            border: 1px solid var(--solid-gold);
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .btn-scroll:hover {
-            background: var(--solid-gold);
-            color: #0F172A;
-        }
-
-        /* Dedicated Scroll Container (Handles Both Vertical and Horizontal Scroll) */
+        /* Dedicated Scroll Container */
         .table-section {
             width: 100%;
             flex: 1;
-            overflow: auto; /* Handles vertical and horizontal table scrolling */
+            overflow: auto;
             background: var(--white);
             scroll-behavior: smooth;
             position: relative;
@@ -244,11 +203,11 @@
         table {
             width: 100%;
             table-layout: auto;
-            border-collapse: separate; /* Required for perfect sticky table headers */
+            border-collapse: separate;
             border-spacing: 0;
         }
 
-        /* Clean Fixed Table Header - Locked to top:0 of .table-section */
+        /* Fixed Table Header */
         th {
             position: sticky;
             top: 0;
@@ -330,10 +289,6 @@
             <h2 class="sub-heading-1">Department of Computer Science and Engineering</h2>
             <h3 class="sub-heading-2">Placed Students data for the Academic Year 2025-2026</h3>
         </div>
-        <div class="user-nav">
-            Logged in as: <strong id="user-email-display">ecepco@mgit.ac.in</strong>
-            <a href="login.html" class="logout-link">Logout</a>
-        </div>
     </nav>
 
     <div class="container">
@@ -349,25 +304,21 @@
                 </select>
 
                 <button class="btn btn-reset" onclick="resetFilters()">🔄 Reset</button>
-                
-                <div id="active-filter-badge" class="filter-badge">
-                    🎓 2026 Batch | Detecting Dept...
+            </div>
+
+            <!-- Stats Centered in Middle of Row -->
+            <div class="toolbar-center">
+                <div id="total-count" style="font-size:13px; font-weight:700; color:var(--solid-gold);">
+                    Filtering Google Sheet...
                 </div>
             </div>
 
             <div class="toolbar-right">
-                <button class="btn btn-scroll" onclick="scrollTableHorizontally(-300)" title="Scroll Left">◀ Scroll Left</button>
-                <button class="btn btn-scroll" onclick="scrollTableHorizontally(300)" title="Scroll Right">Scroll Right ▶</button>
-
                 <button class="btn btn-excel" onclick="exportToExcel()">📊 Export to Excel</button>
-                
-                <div id="total-count" style="font-size:12px; font-weight:600; color:var(--solid-gold);">
-                    Filtering Google Sheet...
-                </div>
             </div>
         </div>
 
-        <!-- Single Table Scroll Section -->
+        <!-- Table Container -->
         <div class="table-section" id="tableSection">
             <table id="data-table">
                 <thead id="table-head"></thead>
@@ -392,15 +343,6 @@
     let sheetRowsData = [];
     let currentFilteredData = [];
     let companyHeaderName = "";
-
-    // Scroll Table Horizontally
-    function scrollTableHorizontally(amount) {
-        const tableSec = document.getElementById('tableSection');
-        tableSec.scrollBy({
-            left: amount,
-            behavior: 'smooth'
-        });
-    }
 
     // Helper: Convert RAW_ALL_CAPS to Proper Title Case
     function toProperCase(str) {
@@ -438,9 +380,6 @@
             const storedUser = JSON.parse(localStorage.getItem('currentUser')) || { email: "ecepco@mgit.ac.in" };
             const userEmail = storedUser.email;
             const userBranch = getBranchFromEmail(userEmail);
-
-            document.getElementById('user-email-display').innerText = userEmail;
-            document.getElementById('active-filter-badge').innerText = `🎓 2026 Batch | ${userBranch} Department`;
 
             const response = await fetch(PUBLISHED_CSV_URL);
             if (!response.ok) throw new Error("Failed to fetch sheet data");
