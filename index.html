@@ -77,7 +77,7 @@
             font-weight: 600;
         }
 
-        /* Container - No Horizontal Scroll */
+        /* Container */
         .container {
             max-width: 100%;
             width: 100%;
@@ -97,13 +97,13 @@
             font-weight: 600;
         }
 
-        /* Table Area - Strict Screen Width Fit */
+        /* Table Area - Smooth Horizontal Scroll */
         .table-section {
             background: var(--white);
             border-radius: 8px;
             border: 1px solid var(--border-light);
             width: 100%;
-            overflow-x: hidden; /* Prevents horizontal scrolling */
+            overflow-x: auto;
             box-shadow: 0 1px 3px rgba(0,0,0,0.02);
         }
 
@@ -187,10 +187,10 @@
             background: var(--excel-hover);
         }
 
-        /* Fixed Table Layout to ensure columns scale proportionally to screen */
+        /* Auto Table Layout - Columns tightly fit content length */
         table {
             width: 100%;
-            table-layout: fixed;
+            table-layout: auto;
             border-collapse: collapse;
         }
 
@@ -200,23 +200,18 @@
             font-size: 11px;
             font-weight: 700;
             text-transform: none;
-            padding: 6px 4px;
+            padding: 6px 8px;
             border-bottom: 2px solid var(--border-light);
-            white-space: normal;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
+            white-space: nowrap; /* No text wrapping */
             vertical-align: middle;
-            line-height: 1.25;
             text-align: center;
         }
 
         td {
-            padding: 6px 4px;
+            padding: 5px 8px;
             border-bottom: 1px solid var(--border-light);
             font-size: 11px;
-            white-space: normal;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
+            white-space: nowrap; /* No text wrapping */
             vertical-align: middle;
             text-align: center;
         }
@@ -228,7 +223,7 @@
             text-decoration: none;
             font-weight: 600;
             background: #EFF6FF;
-            padding: 2px 5px;
+            padding: 2px 6px;
             border-radius: 4px;
             border: 1px solid #BFDBFE;
             display: inline-block;
@@ -335,22 +330,15 @@
             .replace(/\b\w/g, char => char.toUpperCase());
     }
 
-    // CHANGE 1: Helper to Detect & Hide Specified Columns
+    // Helper: Detect & Hide Specified Columns
     function isIgnoredHeader(headerName) {
         if (!headerName) return true;
         const norm = headerName.toLowerCase().trim();
         const normAlpha = norm.replace(/[^a-z0-9]/g, '');
 
-        // 1. Serial Number columns
         if (['sno', 'slno', 'serialno', 'srno', 'snum', 'slnum', 'sl'].includes(normAlpha)) return true;
-
-        // 2. Nature of the Column
         if (norm.includes('nature')) return true;
-
-        // 3. On Campus / Off Column
         if (norm.includes('on campus') || norm.includes('off campus') || norm.includes('on/off')) return true;
-
-        // 4. Paid / Unpaid Interns
         if (norm.includes('paid') || norm.includes('unpaid')) return true;
 
         return false;
@@ -385,7 +373,6 @@
                 return;
             }
 
-            // Extract headers and filter out ignored columns
             sheetHeaders = parsedLines[0]
                 .map(h => h.trim())
                 .filter(h => h !== '' && !isIgnoredHeader(h));
