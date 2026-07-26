@@ -27,31 +27,34 @@
             --orange-focus: #F97316; /* Light Orange Focus Ring */
         }
 
+        html, body {
+            height: 100%;
+            overflow: hidden; /* Lock viewport to prevent window double scrolling */
+        }
+
         body {
             background-color: var(--bg-main);
             color: var(--text-dark);
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* Sticky Navbar Header Banner */
+        /* Fixed Top Header Banner */
         .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            flex-shrink: 0;
             background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #3B0764 100%);
             color: var(--solid-gold);
-            padding: 14px 20px;
+            padding: 12px 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             border-bottom: 2px solid var(--solid-gold);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
             width: 100%;
+            position: relative;
         }
 
-        /* Increased Row Height & Spacing Between Headings */
+        /* 3-Tier Headings in Tahoma & Solid Gold */
         .brand-section {
             width: 100%;
             text-align: center;
@@ -59,36 +62,34 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 6px; /* Increased Spacing Between Heading Lines */
+            gap: 4px;
         }
 
         .main-heading {
             font-family: 'Tahoma', 'Segoe UI', Arial, sans-serif;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 800;
             color: var(--solid-gold);
             letter-spacing: 0.5px;
-            line-height: 1.3;
-            margin-bottom: 2px;
+            line-height: 1.2;
         }
 
         .sub-heading-1 {
             font-family: 'Tahoma', 'Segoe UI', Arial, sans-serif;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 600;
             color: var(--solid-gold);
             opacity: 0.95;
-            line-height: 1.3;
-            margin-bottom: 2px;
+            line-height: 1.2;
         }
 
         .sub-heading-2 {
             font-family: 'Tahoma', 'Segoe UI', Arial, sans-serif;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 500;
             color: var(--solid-gold);
             opacity: 0.90;
-            line-height: 1.3;
+            line-height: 1.2;
         }
 
         .user-nav {
@@ -114,20 +115,17 @@
 
         .container {
             width: 100%;
-            margin: 0;
-            padding: 0;
             flex: 1;
             display: flex;
             flex-direction: column;
+            overflow: hidden; /* Contains the internal scroll */
         }
 
-        /* Sticky Filter Toolbar */
+        /* Filter Toolbar */
         .table-toolbar {
-            position: sticky;
-            top: 0; /* Updated via JS dynamically */
-            z-index: 95;
+            flex-shrink: 0;
             background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #3B0764 100%);
-            padding: 10px 16px;
+            padding: 8px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -233,37 +231,39 @@
             color: #0F172A;
         }
 
-        /* Table Section */
+        /* Dedicated Scroll Container (Handles Both Vertical and Horizontal Scroll) */
         .table-section {
             width: 100%;
-            overflow-x: auto;
-            background: var(--white);
             flex: 1;
+            overflow: auto; /* Handles vertical and horizontal table scrolling */
+            background: var(--white);
             scroll-behavior: smooth;
+            position: relative;
         }
 
         table {
             width: 100%;
             table-layout: auto;
-            border-collapse: collapse;
+            border-collapse: separate; /* Required for perfect sticky table headers */
+            border-spacing: 0;
         }
 
-        /* Sticky Table Headers - Height & Padding Increased */
+        /* Clean Fixed Table Header - Locked to top:0 of .table-section */
         th {
             position: sticky;
-            top: 0; /* Updated via JS dynamically */
-            z-index: 90;
+            top: 0;
+            z-index: 20;
             background-color: var(--navy-dark);
             color: var(--white);
             font-size: 12px;
             font-weight: 700;
             text-transform: none;
-            padding: 12px 14px; /* Increased Padding for Row Height */
-            border-bottom: 2px solid var(--border-light);
+            padding: 10px 14px;
+            border-bottom: 2px solid var(--solid-gold);
             white-space: nowrap;
             vertical-align: middle;
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
 
         td {
@@ -311,8 +311,9 @@
         }
 
         footer {
+            flex-shrink: 0;
             text-align: center;
-            padding: 10px;
+            padding: 8px;
             color: var(--text-muted);
             font-size: 11px;
             border-top: 1px solid var(--border-light);
@@ -322,7 +323,7 @@
 </head>
 <body>
 
-    <!-- Sticky Top Header Banner -->
+    <!-- Header Banner -->
     <nav class="navbar" id="mainNavbar">
         <div class="brand-section">
             <h1 class="main-heading">Mahatma Gandhi Institute of Technology (A)</h1>
@@ -336,7 +337,7 @@
     </nav>
 
     <div class="container">
-        <!-- Sticky Filter Toolbar -->
+        <!-- Filter Toolbar -->
         <div class="table-toolbar" id="tableToolbar">
             <div class="toolbar-left">
                 <div class="search-box">
@@ -366,7 +367,7 @@
             </div>
         </div>
 
-        <!-- Table Container -->
+        <!-- Single Table Scroll Section -->
         <div class="table-section" id="tableSection">
             <table id="data-table">
                 <thead id="table-head"></thead>
@@ -391,23 +392,6 @@
     let sheetRowsData = [];
     let currentFilteredData = [];
     let companyHeaderName = "";
-
-    // Dynamic Calculation of Sticky Top Offsets to prevent overlap
-    function adjustStickyOffsets() {
-        const navbar = document.getElementById('mainNavbar');
-        const toolbar = document.getElementById('tableToolbar');
-        const ths = document.querySelectorAll('th');
-
-        if (navbar && toolbar) {
-            const navHeight = navbar.offsetHeight;
-            toolbar.style.top = navHeight + 'px';
-
-            const totalTopHeight = navHeight + toolbar.offsetHeight;
-            ths.forEach(th => {
-                th.style.top = totalTopHeight + 'px';
-            });
-        }
-    }
 
     // Scroll Table Horizontally
     function scrollTableHorizontally(amount) {
@@ -626,9 +610,6 @@
 
         tableBody.innerHTML = bodyHtml;
         countDisplay.innerText = `Showing Records: ${rows.length}`;
-
-        // Re-adjust sticky positioning whenever table renders
-        setTimeout(adjustStickyOffsets, 50);
     }
 
     function filterTable() {
@@ -695,9 +676,7 @@
         document.body.removeChild(a);
     }
 
-    // Recalculate sticky offsets on load & resize
     window.addEventListener('DOMContentLoaded', fetchCSVData);
-    window.addEventListener('resize', adjustStickyOffsets);
 </script>
 
 </body>
