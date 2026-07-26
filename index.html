@@ -35,15 +35,14 @@
             flex-direction: column;
         }
 
-        /* CHANGE 3: Sticky Navbar Frozen at Top */
+        /* Sticky Navbar Header Banner */
         .navbar {
             position: sticky;
             top: 0;
             z-index: 100;
-            height: 86px;
             background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #3B0764 100%);
             color: var(--solid-gold);
-            padding: 10px 20px;
+            padding: 14px 20px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -52,6 +51,7 @@
             width: 100%;
         }
 
+        /* Increased Row Height & Spacing Between Headings */
         .brand-section {
             width: 100%;
             text-align: center;
@@ -59,36 +59,36 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 6px; /* Increased Spacing Between Heading Lines */
         }
 
-        /* CHANGE 1: Tahoma Font Style & Larger Sizes for Headings */
         .main-heading {
             font-family: 'Tahoma', 'Segoe UI', Arial, sans-serif;
-            font-size: 28px; /* Increased Size */
+            font-size: 28px;
             font-weight: 800;
             color: var(--solid-gold);
             letter-spacing: 0.5px;
-            line-height: 1.2;
-            margin-bottom: 3px;
+            line-height: 1.3;
+            margin-bottom: 2px;
         }
 
         .sub-heading-1 {
             font-family: 'Tahoma', 'Segoe UI', Arial, sans-serif;
-            font-size: 18px; /* Increased Size */
+            font-size: 18px;
             font-weight: 600;
             color: var(--solid-gold);
             opacity: 0.95;
-            line-height: 1.2;
+            line-height: 1.3;
             margin-bottom: 2px;
         }
 
         .sub-heading-2 {
             font-family: 'Tahoma', 'Segoe UI', Arial, sans-serif;
-            font-size: 15px; /* Increased Size */
+            font-size: 15px;
             font-weight: 500;
             color: var(--solid-gold);
             opacity: 0.90;
-            line-height: 1.2;
+            line-height: 1.3;
         }
 
         .user-nav {
@@ -121,14 +121,13 @@
             flex-direction: column;
         }
 
-        /* CHANGE 2 & 3: Mixed Gradient Background for Searchbar/Filter Row + Sticky Position */
+        /* Sticky Filter Toolbar */
         .table-toolbar {
             position: sticky;
-            top: 86px; /* Frozen right below Navbar */
+            top: 0; /* Updated via JS dynamically */
             z-index: 95;
-            height: 48px;
-            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #3B0764 100%); /* Mixed Dark Blue & Violet Gradient */
-            padding: 8px 16px;
+            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #3B0764 100%);
+            padding: 10px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -144,7 +143,7 @@
             flex-wrap: wrap;
         }
 
-        /* Light Orange Cursor Focus Styles */
+        /* Input Focus Styling */
         .search-box input {
             width: 190px;
             padding: 6px 10px;
@@ -217,7 +216,6 @@
             background: var(--excel-hover);
         }
 
-        /* CHANGE 4: Horizontal Scroll Buttons Styling */
         .btn-scroll {
             background: rgba(255, 255, 255, 0.15);
             color: var(--solid-gold);
@@ -235,10 +233,10 @@
             color: #0F172A;
         }
 
-        /* Table Container for Horizontal Scrolling */
+        /* Table Section */
         .table-section {
             width: 100%;
-            overflow-x: auto; /* Horizontal Scroll */
+            overflow-x: auto;
             background: var(--white);
             flex: 1;
             scroll-behavior: smooth;
@@ -250,21 +248,22 @@
             border-collapse: collapse;
         }
 
-        /* CHANGE 3: Sticky Frozen Table Headers (Frozen below navbar + toolbar = 134px) */
+        /* Sticky Table Headers - Height & Padding Increased */
         th {
             position: sticky;
-            top: 134px; /* Freezes right below the sticky navbar + toolbar */
+            top: 0; /* Updated via JS dynamically */
             z-index: 90;
             background-color: var(--navy-dark);
             color: var(--white);
             font-size: 12px;
             font-weight: 700;
             text-transform: none;
-            padding: 10px 12px;
+            padding: 12px 14px; /* Increased Padding for Row Height */
             border-bottom: 2px solid var(--border-light);
             white-space: nowrap;
             vertical-align: middle;
             text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         td {
@@ -323,8 +322,8 @@
 </head>
 <body>
 
-    <!-- CHANGE 1 & 3: Sticky Top Header Banner with Tahoma Gold Headings -->
-    <nav class="navbar">
+    <!-- Sticky Top Header Banner -->
+    <nav class="navbar" id="mainNavbar">
         <div class="brand-section">
             <h1 class="main-heading">Mahatma Gandhi Institute of Technology (A)</h1>
             <h2 class="sub-heading-1">Department of Computer Science and Engineering</h2>
@@ -337,8 +336,8 @@
     </nav>
 
     <div class="container">
-        <!-- CHANGE 2 & 3: Sticky Filter Toolbar with Mixed Gradient Background -->
-        <div class="table-toolbar">
+        <!-- Sticky Filter Toolbar -->
+        <div class="table-toolbar" id="tableToolbar">
             <div class="toolbar-left">
                 <div class="search-box">
                     <input type="text" id="searchInput" placeholder="Search Roll No, Name..." onkeyup="filterTable()">
@@ -356,7 +355,6 @@
             </div>
 
             <div class="toolbar-right">
-                <!-- CHANGE 4: Horizontal Scroll Buttons -->
                 <button class="btn btn-scroll" onclick="scrollTableHorizontally(-300)" title="Scroll Left">◀ Scroll Left</button>
                 <button class="btn btn-scroll" onclick="scrollTableHorizontally(300)" title="Scroll Right">Scroll Right ▶</button>
 
@@ -368,7 +366,7 @@
             </div>
         </div>
 
-        <!-- Table Container (Horizontal Scroll) -->
+        <!-- Table Container -->
         <div class="table-section" id="tableSection">
             <table id="data-table">
                 <thead id="table-head"></thead>
@@ -394,7 +392,24 @@
     let currentFilteredData = [];
     let companyHeaderName = "";
 
-    // CHANGE 4: Function to scroll table horizontally smoothly
+    // Dynamic Calculation of Sticky Top Offsets to prevent overlap
+    function adjustStickyOffsets() {
+        const navbar = document.getElementById('mainNavbar');
+        const toolbar = document.getElementById('tableToolbar');
+        const ths = document.querySelectorAll('th');
+
+        if (navbar && toolbar) {
+            const navHeight = navbar.offsetHeight;
+            toolbar.style.top = navHeight + 'px';
+
+            const totalTopHeight = navHeight + toolbar.offsetHeight;
+            ths.forEach(th => {
+                th.style.top = totalTopHeight + 'px';
+            });
+        }
+    }
+
+    // Scroll Table Horizontally
     function scrollTableHorizontally(amount) {
         const tableSec = document.getElementById('tableSection');
         tableSec.scrollBy({
@@ -611,6 +626,9 @@
 
         tableBody.innerHTML = bodyHtml;
         countDisplay.innerText = `Showing Records: ${rows.length}`;
+
+        // Re-adjust sticky positioning whenever table renders
+        setTimeout(adjustStickyOffsets, 50);
     }
 
     function filterTable() {
@@ -677,7 +695,9 @@
         document.body.removeChild(a);
     }
 
+    // Recalculate sticky offsets on load & resize
     window.addEventListener('DOMContentLoaded', fetchCSVData);
+    window.addEventListener('resize', adjustStickyOffsets);
 </script>
 
 </body>
