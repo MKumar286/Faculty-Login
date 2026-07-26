@@ -33,11 +33,11 @@
             flex-direction: column;
         }
 
-        /* Navbar */
+        /* CHANGE 3: Reduced Navbar Padding */
         .navbar {
             background-color: var(--navy-dark);
             color: var(--white);
-            padding: 12px 24px;
+            padding: 8px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -46,23 +46,23 @@
         .brand-section {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .logo-badge {
             background-color: var(--primary-blue);
             color: var(--white);
             font-weight: 800;
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 15px;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 14px;
         }
 
-        .brand-title h1 { font-size: 17px; }
-        .brand-title span { font-size: 12px; color: #94A3B8; }
+        .brand-title h1 { font-size: 15px; }
+        .brand-title span { font-size: 11px; color: #94A3B8; }
 
         .user-nav {
-            font-size: 13px;
+            font-size: 12px;
             color: #94A3B8;
         }
 
@@ -73,34 +73,17 @@
         .logout-link {
             color: #EF4444;
             text-decoration: none;
-            margin-left: 10px;
+            margin-left: 8px;
             font-weight: 600;
         }
 
+        /* CHANGE 3: Compact Container Margins */
         .container {
-            max-width: 1400px;
+            max-width: 100%;
             width: 100%;
             margin: 0 auto;
-            padding: 20px;
+            padding: 10px 14px;
             flex: 1;
-        }
-
-        .page-header {
-            margin-bottom: 18px;
-            background: white;
-            padding: 16px 20px;
-            border-radius: 10px;
-            border: 1px solid var(--border-light);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .header-title h2 {
-            font-size: 20px;
-            color: var(--navy-dark);
         }
 
         .filter-badge {
@@ -108,8 +91,8 @@
             background: #EFF6FF;
             color: var(--primary-blue);
             border: 1px solid #BFDBFE;
-            padding: 5px 12px;
-            border-radius: 20px;
+            padding: 4px 10px;
+            border-radius: 16px;
             font-size: 12px;
             font-weight: 600;
         }
@@ -117,42 +100,43 @@
         /* Table Area */
         .table-section {
             background: var(--white);
-            border-radius: 10px;
+            border-radius: 8px;
             border: 1px solid var(--border-light);
             overflow-x: auto;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
         }
 
+        /* CHANGE 3: Compact Toolbar Padding */
         .table-toolbar {
-            padding: 14px 20px;
+            padding: 8px 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-light);
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 8px;
         }
 
         .toolbar-left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         .toolbar-right {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         .search-box input {
-            width: 220px;
-            padding: 7px 10px;
+            width: 200px;
+            padding: 5px 8px;
             border: 1px solid var(--border-light);
-            border-radius: 6px;
-            font-size: 13px;
+            border-radius: 5px;
+            font-size: 12px;
             outline: none;
         }
 
@@ -161,28 +145,28 @@
         }
 
         .filter-select {
-            padding: 7px 10px;
+            padding: 5px 8px;
             border: 1px solid var(--border-light);
-            border-radius: 6px;
-            font-size: 13px;
+            border-radius: 5px;
+            font-size: 12px;
             outline: none;
             background: white;
             color: var(--text-dark);
             cursor: pointer;
-            max-width: 200px;
+            max-width: 180px;
         }
 
         .btn {
-            padding: 7px 14px;
-            border-radius: 6px;
-            font-size: 13px;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 12px;
             font-weight: 600;
             border: none;
             cursor: pointer;
             transition: 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
 
         .btn-reset {
@@ -206,32 +190,33 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            text-align: left;
         }
 
-        /* CHANGE 1 & 2: Shrunk, Proper Text Headers with Text-Wrapping */
+        /* CHANGE 1 & 3: Centered Cells & Minimal Padding for Max Rows */
         th {
             background-color: var(--navy-dark);
             color: var(--white);
             font-size: 11px;
             font-weight: 700;
-            text-transform: none; /* Keeps Proper Case */
+            text-transform: none;
             letter-spacing: 0.3px;
-            padding: 8px 10px; /* Reduced Cell Padding */
+            padding: 6px 8px;
             border-bottom: 2px solid var(--border-light);
-            white-space: normal; /* Allows header text to wrap */
+            white-space: normal;
             word-wrap: break-word;
-            max-width: 130px; /* Prevents columns from stretching excessively */
+            max-width: 120px;
             vertical-align: middle;
-            line-height: 1.25;
+            line-height: 1.2;
+            text-align: center; /* CHANGE 1: Center Align Header */
         }
 
         td {
-            padding: 8px 10px; /* Reduced Cell Padding */
+            padding: 6px 8px;
             border-bottom: 1px solid var(--border-light);
-            font-size: 13px;
+            font-size: 12px;
             white-space: nowrap;
             vertical-align: middle;
+            text-align: center; /* CHANGE 1: Center Align Data */
         }
 
         tr:hover { background-color: #F8FAFC; }
@@ -241,11 +226,11 @@
             text-decoration: none;
             font-weight: 600;
             background: #EFF6FF;
-            padding: 3px 8px;
+            padding: 2px 6px;
             border-radius: 4px;
             border: 1px solid #BFDBFE;
             display: inline-block;
-            font-size: 12px;
+            font-size: 11px;
         }
 
         .doc-link:hover {
@@ -254,20 +239,21 @@
         }
 
         .loading-text {
-            padding: 24px;
+            padding: 20px;
             text-align: center;
             color: var(--text-muted);
             font-weight: 600;
         }
 
+        /* CHANGE 3: Compact Footer */
         footer {
             text-align: center;
-            padding: 16px;
+            padding: 10px;
             color: var(--text-muted);
-            font-size: 12px;
+            font-size: 11px;
             border-top: 1px solid var(--border-light);
             background: white;
-            margin-top: 24px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -287,17 +273,8 @@
         </div>
     </nav>
 
+    <!-- CHANGE 2: Removed Top Headings Block to Display More Rows -->
     <div class="container">
-        <div class="page-header">
-            <div class="header-title">
-                <h2>Student Progression Details</h2>
-                <p style="color: #64748B; font-size: 13px;">Live data stream dynamically filtered by logged-in coordinator role.</p>
-            </div>
-            <div id="active-filter-badge" class="filter-badge">
-                🎓 Active Filter: 2026 Batch | Detecting Department...
-            </div>
-        </div>
-
         <div class="table-section">
             <div class="table-toolbar">
                 <div class="toolbar-left">
@@ -310,12 +287,16 @@
                     </select>
 
                     <button class="btn btn-reset" onclick="resetFilters()">🔄 Reset</button>
+                    
+                    <div id="active-filter-badge" class="filter-badge">
+                        🎓 2026 Batch | Detecting Dept...
+                    </div>
                 </div>
 
                 <div class="toolbar-right">
                     <button class="btn btn-excel" onclick="exportToExcel()">📊 Export to Excel</button>
                     
-                    <div id="total-count" style="font-size:13px; font-weight:600; color:#64748B;">
+                    <div id="total-count" style="font-size:12px; font-weight:600; color:#64748B;">
                         Filtering Google Sheet...
                     </div>
                 </div>
@@ -345,7 +326,7 @@
     let currentFilteredData = [];
     let companyHeaderName = "";
 
-    // Helper: Convert RAW_ALL_CAPS or underscore_text to Proper Title Case
+    // Helper: Convert RAW_ALL_CAPS to Proper Title Case
     function toProperCase(str) {
         if (!str) return '';
         return str
@@ -354,7 +335,14 @@
             .replace(/\b\w/g, char => char.toUpperCase());
     }
 
-    // Helper: Extract Department Code from Email ID (e.g., "ecepco@mgit.ac.in" -> "ECE")
+    // CHANGE 4: Helper to Detect & Ignore Serial Number Columns
+    function isSerialNoHeader(headerName) {
+        if (!headerName) return false;
+        const normalized = headerName.toLowerCase().replace(/[^a-z0-9]/g, '');
+        return ['sno', 'slno', 'serialno', 'srno', 'snum', 'slnum', 'sl'].includes(normalized);
+    }
+
+    // Helper: Extract Department Code from Email ID (e.g. "ecepco@mgit.ac.in" -> "ECE")
     function getBranchFromEmail(email) {
         if (!email) return "ECE";
         const emailPrefix = email.split('@')[0].toLowerCase();
@@ -369,7 +357,7 @@
             const userBranch = getBranchFromEmail(userEmail);
 
             document.getElementById('user-email-display').innerText = userEmail;
-            document.getElementById('active-filter-badge').innerText = `🎓 Active Filter: 2026 Batch | ${userBranch} Department`;
+            document.getElementById('active-filter-badge').innerText = `🎓 2026 Batch | ${userBranch} Department`;
 
             const response = await fetch(PUBLISHED_CSV_URL);
             if (!response.ok) throw new Error("Failed to fetch sheet data");
@@ -383,12 +371,16 @@
                 return;
             }
 
-            sheetHeaders = parsedLines[0].map(h => h.trim()).filter(h => h !== '');
+            // CHANGE 4: Extract headers and filter out Serial Number column
+            sheetHeaders = parsedLines[0]
+                .map(h => h.trim())
+                .filter(h => h !== '' && !isSerialNoHeader(h));
 
             const allParsedRows = parsedLines.slice(1).map(rowValues => {
                 const rowObj = {};
-                sheetHeaders.forEach((header, index) => {
-                    rowObj[header] = rowValues[index] !== undefined ? rowValues[index].trim() : "";
+                sheetHeaders.forEach((header) => {
+                    const originalIndex = parsedLines[0].findIndex(rawH => rawH.trim() === header);
+                    rowObj[header] = rowValues[originalIndex] !== undefined ? rowValues[originalIndex].trim() : "";
                 });
                 return rowObj;
             });
@@ -510,7 +502,7 @@
             return;
         }
 
-        // Render Compact Proper Case Headers
+        // Render Centered Headers
         let headerHtml = '<tr>';
         headers.forEach(h => {
             headerHtml += `<th>${toProperCase(h)}</th>`;
@@ -518,7 +510,7 @@
         headerHtml += '</tr>';
         tableHead.innerHTML = headerHtml;
 
-        // Render Compact Rows
+        // Render Centered Data Rows
         let bodyHtml = '';
         rows.forEach(row => {
             bodyHtml += '<tr>';
@@ -578,14 +570,14 @@
         excelHtml += '<table border="1"><thead><tr>';
 
         sheetHeaders.forEach(h => {
-            excelHtml += `<th style="background-color:#0F172A; color:#FFFFFF; font-weight:bold;">${toProperCase(h)}</th>`;
+            excelHtml += `<th style="background-color:#0F172A; color:#FFFFFF; font-weight:bold; text-align:center;">${toProperCase(h)}</th>`;
         });
         excelHtml += '</tr></thead><tbody>';
 
         currentFilteredData.forEach(row => {
             excelHtml += '<tr>';
             sheetHeaders.forEach(h => {
-                excelHtml += `<td>${row[h] || ''}</td>`;
+                excelHtml += `<td style="text-align:center;">${row[h] || ''}</td>`;
             });
             excelHtml += '</tr>';
         });
