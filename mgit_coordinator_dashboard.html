@@ -4,17 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Department Progression Dashboard - MGIT Placement Portal</title>
+    
+    <!-- Font Awesome for sleek corporate icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Segoe UI", Arial, sans-serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
         }
 
         :root {
             --bg-main: #F8FAFC;
-            --navy-dark: #0F172A;
+            --navy-dark: #071638;
+            --navy-gradient: linear-gradient(135deg, #071638 0%, #0d2558 100%);
             --primary-blue: #2563EB;
             --text-dark: #000000;
             --text-muted: #64748B;
@@ -29,7 +34,7 @@
 
         html, body {
             height: 100%;
-            overflow: hidden; /* Prevents window double scrolling */
+            overflow: hidden; /* Prevents double scrolling */
         }
 
         body {
@@ -39,56 +44,108 @@
             flex-direction: column;
         }
 
-        /* Fixed Top Header Banner (Centered Headings) */
-        .navbar {
-            flex-shrink: 0;
-            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #3B0764 100%);
-            color: var(--solid-gold);
-            padding: 12px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-bottom: 2px solid var(--solid-gold);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-            width: 100%;
+        /* TAHOMA FONT ENFORCED ON ALL HEADINGS */
+        h1, h2, h3, h4 {
+            font-family: 'Tahoma', Geneva, Verdana, sans-serif !important;
         }
 
-        /* 3-Tier Headings in Tahoma & Solid Gold */
-        .brand-section {
+        /* FULL-WIDTH HEADER CONTAINER */
+        .header-container {
             width: 100%;
+            background: var(--navy-gradient);
+            padding: 10px 15px 14px 15px;
             text-align: center;
+            border-bottom: 2px solid var(--solid-gold);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 4px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
         }
 
-        .main-heading {
-            font-family: 'Tahoma', 'Segoe UI', Arial, sans-serif;
-            font-size: 26px;
+        /* SWEEPING CURVED CELEBRATORY RAYS */
+        .bg-curves {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.18;
+        }
+
+        /* GLOWING 4-POINT SPARKLING BACKGROUND STARS */
+        .star-sparkle {
+            position: absolute;
+            pointer-events: none;
+            filter: drop-shadow(0 0 6px #ffd700) drop-shadow(0 0 10px #fcd34d);
+            animation: pulseSparkle 3s infinite alternate ease-in-out;
+        }
+
+        .star-1 { top: 12%; left: 6%; width: 22px; height: 22px; animation-delay: 0s; }
+        .star-2 { bottom: 15%; left: 12%; width: 14px; height: 14px; animation-delay: 1s; }
+        .star-3 { top: 15%; right: 8%; width: 26px; height: 26px; animation-delay: 0.5s; }
+        .star-4 { bottom: 12%; right: 14%; width: 16px; height: 16px; animation-delay: 1.5s; }
+
+        @keyframes pulseSparkle {
+            0% { transform: scale(0.85); opacity: 0.6; }
+            100% { transform: scale(1.15); opacity: 1; }
+        }
+
+        /* HEADINGS WRAPPER */
+        .headings-wrapper {
+            position: relative;
+            z-index: 2;
+            margin: 0 auto;
+            max-width: 950px;
+            width: 100%;
+        }
+
+        /* MAIN HEADING 1 */
+        .header-container h1 {
+            color: #ffd700; /* Solid Gold Text */
+            font-size: 1.85rem;
             font-weight: 800;
-            color: var(--solid-gold);
-            letter-spacing: 0.5px;
+            letter-spacing: -0.2px;
+            margin: 0 0 2px 0;
             line-height: 1.2;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
         }
 
-        .sub-heading-1 {
-            font-family: 'Tahoma', 'Segoe UI', Arial, sans-serif;
-            font-size: 17px;
+        /* SUBHEADINGS ALIGNED CLOSELY UNDER MAIN HEADING */
+        .header-container h2 {
+            color: #ffffff;
+            font-size: 1.10rem;
+            font-weight: 700;
+            opacity: 0.98;
+            margin: 0 0 2px 0;
+            letter-spacing: 0.3px;
+        }
+
+        .header-container h3 {
+            color: #fde68a;
+            font-size: 0.90rem;
             font-weight: 600;
-            color: var(--solid-gold);
-            opacity: 0.95;
-            line-height: 1.2;
+            margin: 0 0 6px 0;
+            letter-spacing: 0.6px;
         }
 
-        .sub-heading-2 {
-            font-family: 'Tahoma', 'Segoe UI', Arial, sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--solid-gold);
-            opacity: 0.90;
-            line-height: 1.2;
+        /* STAR SPARKLE DIVIDER POSITIONED AT THE END OF ALL THREE HEADINGS */
+        .star-sharp-divider {
+            margin: 6px auto 0 auto;
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .star-sharp-divider svg {
+            width: 100%;
+            height: 20px;
         }
 
         .container {
@@ -102,7 +159,7 @@
         /* Filter Toolbar */
         .table-toolbar {
             flex-shrink: 0;
-            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #3B0764 100%);
+            background: var(--navy-gradient);
             padding: 8px 16px;
             display: flex;
             justify-content: space-between;
@@ -284,18 +341,65 @@
             border-top: 1px solid var(--border-light);
             background: white;
         }
+
+        @media (max-width: 640px) {
+            .header-container h1 { font-size: 1.4rem; }
+            .header-container h2 { font-size: 0.98rem; }
+            .header-container h3 { font-size: 0.82rem; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Header Banner -->
-    <nav class="navbar" id="mainNavbar">
-        <div class="brand-section">
-            <h1 class="main-heading">Mahatma Gandhi Institute of Technology (A)</h1>
-            <h2 class="sub-heading-1" id="deptSubHeading">Department Progression Dashboard</h2>
-            <h3 class="sub-heading-2">Placed Students data for the Academic Year 2025-2026</h3>
+    <!-- Full-width Header with Sweeping Rays and Sparkles -->
+    <header class="header-container">
+        
+        <!-- Background Sweeping Curved Rays -->
+        <svg class="bg-curves" viewBox="0 0 1000 200" preserveAspectRatio="none">
+            <path d="M -100,-20 Q 300,40 700,220" stroke="#ffffff" stroke-width="1.5" fill="none"/>
+            <path d="M -50,-20 Q 350,60 750,220" stroke="#ffffff" stroke-width="1.5" fill="none"/>
+            <path d="M 0,-20 Q 400,80 800,220" stroke="#ffffff" stroke-width="1.5" fill="none"/>
+            <path d="M 50,-20 Q 450,100 850,220" stroke="#ffffff" stroke-width="1.5" fill="none"/>
+            <path d="M 100,-20 Q 500,120 900,220" stroke="#ffffff" stroke-width="1.5" fill="none"/>
+            <path d="M 150,-20 Q 550,140 950,220" stroke="#ffffff" stroke-width="1.5" fill="none"/>
+        </svg>
+
+        <!-- Glowing 4-Point Gold Sparkling Stars -->
+        <svg class="star-sparkle star-1" viewBox="0 0 24 24"><path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z" fill="#ffd700"/></svg>
+        <svg class="star-sparkle star-2" viewBox="0 0 24 24"><path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z" fill="#ffd700"/></svg>
+        <svg class="star-sparkle star-3" viewBox="0 0 24 24"><path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z" fill="#ffd700"/></svg>
+        <svg class="star-sparkle star-4" viewBox="0 0 24 24"><path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z" fill="#ffd700"/></svg>
+
+        <!-- HEADINGS AREA -->
+        <div class="headings-wrapper">
+            <!-- Heading 1 -->
+            <h1>Mahatma Gandhi Institute of Technology (A)</h1>
+
+            <!-- Heading 2 (Dynamically Updated via JS) -->
+            <h2 id="deptSubHeading">Department Progression Dashboard</h2>
+
+            <!-- Heading 3 -->
+            <h3>Placed Students data for the Academic Year 2025-2026</h3>
+
+            <!-- SOLID SHARP-ENDED LINES WITH CENTER STAR SPARKLE DIVIDER -->
+            <div class="star-sharp-divider">
+                <svg viewBox="0 0 500 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Left Solid Line (Tapered Sharp End) -->
+                    <polygon points="20,12 230,10.5 230,13.5" fill="#ffd700"/>
+                    
+                    <!-- Center Star Sparkle Motif -->
+                    <g transform="translate(250, 12)">
+                        <circle cx="0" cy="0" r="7" fill="#ffd700" opacity="0.35"/>
+                        <path d="M 0 -11 Q 0 0 11 0 Q 0 0 0 11 Q 0 0 -11 0 Q 0 0 0 -11 Z" fill="#ffd700"/>
+                        <path d="M 0 -5 Q 0 0 5 0 Q 0 0 0 5 Q 0 0 -5 0 Q 0 0 0 -5 Z" fill="#ffffff"/>
+                    </g>
+                    
+                    <!-- Right Solid Line (Tapered Sharp End) -->
+                    <polygon points="480,12 270,10.5 270,13.5" fill="#ffd700"/>
+                </svg>
+            </div>
         </div>
-    </nav>
+    </header>
 
     <div class="container">
         <!-- Filter Toolbar -->
@@ -360,6 +464,7 @@
 
     // Helper: Map branch codes to full department names
     function getDepartmentFullName(branchCode) {
+        const code = branchCode.toUpperCase();
         const departmentMap = {
             'ECE': 'Department of Electronics and Communication Engineering',
             'CSE': 'Department of Computer Science and Engineering',
@@ -367,12 +472,15 @@
             'EEE': 'Department of Electrical and Electronics Engineering',
             'MECH':'Department of Mechanical Engineering',
             'CIVIL':'Department of Civil Engineering',
+            'CIV':  'Department of Civil Engineering',
+            'MCT':  'Department of Mechatronics Engineering',
+            'MECHATRONICS': 'Department of Mechatronics Engineering',
             'MME': 'Department of Metallurgical and Materials Engineering',
             'CSD': 'Department of Computer Science and Engineering (Data Science)',
             'CSM': 'Department of Computer Science and Engineering (AI & ML)'
         };
 
-        return departmentMap[branchCode.toUpperCase()] || `Department of ${branchCode.toUpperCase()}`;
+        return departmentMap[code] || `Department of ${code}`;
     }
 
     // Helper: Detect & Hide Specified Columns
@@ -619,7 +727,7 @@
         excelHtml += '<table border="1"><thead><tr>';
 
         sheetHeaders.forEach(h => {
-            excelHtml += `<th style="background-color:#0F172A; color:#FFFFFF; font-weight:bold; text-align:center;">${toProperCase(h)}</th>`;
+            excelHtml += `<th style="background-color:#071638; color:#FFFFFF; font-weight:bold; text-align:center;">${toProperCase(h)}</th>`;
         });
         excelHtml += '</tr></thead><tbody>';
 
