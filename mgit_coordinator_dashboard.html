@@ -156,7 +156,7 @@
             overflow: hidden;
         }
 
-        /* Filter Toolbar */
+        /* Filter Toolbar - Cleaned with Thin Blue Lines */
         .table-toolbar {
             flex-shrink: 0;
             background: var(--navy-gradient);
@@ -164,9 +164,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid var(--solid-gold);
+            border-top: 1px solid var(--primary-blue);
+            border-bottom: 1px solid var(--primary-blue);
+            border-left: none;
+            border-right: none;
             flex-wrap: wrap;
             gap: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
         .toolbar-left, .toolbar-right {
