@@ -243,22 +243,28 @@
             background-color: var(--orange-hover) !important; 
         }
 
+        /* Solid Multi-Color Gradient View Link */
         .doc-link {
-            color: var(--primary-blue);
+            color: #FFFFFF !important;
             text-decoration: none;
-            font-weight: 600;
-            background: #EFF6FF;
-            padding: 3px 8px;
-            border-radius: 4px;
-            border: 1px solid #BFDBFE;
-            display: inline-block;
+            font-weight: 700;
             font-size: 11px;
-            transition: 0.2s;
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: linear-gradient(135deg, #FF416C 0%, #FF4B2B 50%, #8A2387 100%);
+            box-shadow: 0 2px 6px rgba(255, 65, 108, 0.35);
+            transition: all 0.25s ease-in-out;
         }
 
         .doc-link:hover {
-            background: var(--primary-blue);
-            color: white;
+            background: linear-gradient(135deg, #8A2387 0%, #E94057 50%, #F27121 100%);
+            box-shadow: 0 4px 10px rgba(233, 64, 87, 0.5);
+            transform: translateY(-1px) scale(1.03);
+            color: #FFFFFF !important;
         }
 
         .loading-text {
@@ -286,7 +292,7 @@
     <nav class="navbar" id="mainNavbar">
         <div class="brand-section">
             <h1 class="main-heading">Mahatma Gandhi Institute of Technology (A)</h1>
-            <h2 class="sub-heading-1">Department of Computer Science and Engineering</h2>
+            <h2 class="sub-heading-1" id="deptSubHeading">Department Progression Dashboard</h2>
             <h3 class="sub-heading-2">Placed Students data for the Academic Year 2025-2026</h3>
         </div>
     </nav>
@@ -352,6 +358,23 @@
             .replace(/\b\w/g, char => char.toUpperCase());
     }
 
+    // Helper: Map branch codes to full department names
+    function getDepartmentFullName(branchCode) {
+        const departmentMap = {
+            'ECE': 'Department of Electronics and Communication Engineering',
+            'CSE': 'Department of Computer Science and Engineering',
+            'IT':  'Department of Information Technology',
+            'EEE': 'Department of Electrical and Electronics Engineering',
+            'MECH':'Department of Mechanical Engineering',
+            'CIVIL':'Department of Civil Engineering',
+            'MME': 'Department of Metallurgical and Materials Engineering',
+            'CSD': 'Department of Computer Science and Engineering (Data Science)',
+            'CSM': 'Department of Computer Science and Engineering (AI & ML)'
+        };
+
+        return departmentMap[branchCode.toUpperCase()] || `Department of ${branchCode.toUpperCase()}`;
+    }
+
     // Helper: Detect & Hide Specified Columns
     function isIgnoredHeader(headerName) {
         if (!headerName) return true;
@@ -379,6 +402,12 @@
             const storedUser = JSON.parse(localStorage.getItem('currentUser')) || { email: "ecepco@mgit.ac.in" };
             const userEmail = storedUser.email;
             const userBranch = getBranchFromEmail(userEmail);
+
+            // Dynamically update heading based on logged-in branch
+            const deptHeadingElem = document.getElementById('deptSubHeading');
+            if (deptHeadingElem) {
+                deptHeadingElem.innerText = getDepartmentFullName(userBranch);
+            }
 
             const response = await fetch(PUBLISHED_CSV_URL);
             if (!response.ok) throw new Error("Failed to fetch sheet data");
